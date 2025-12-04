@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_start_to_detector"
+            app:destination="@id/detectorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detectorFragment"
+        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.DetectorFragment"
+        android:label="@string/detectorview_detector_button"
+        tools:layout="@layout/fragment_detector">
+        <action
+            android:id="@+id/action_detector_to_info"
+            app:destination="@id/infoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.InfoFragment"
+        android:label="@string/infoview_photo_imageview"
+        tools:layout="@layout/fragment_info" />
+</navigation>

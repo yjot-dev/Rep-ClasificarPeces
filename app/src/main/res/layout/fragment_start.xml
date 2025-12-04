@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".application.mvvm.view.StartFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/long2_dp"
+        android:contentDescription="@string/startview_title"
+        android:src="@drawable/portada" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/startview_title"
+        style="@style/MiTituloStyle"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.65" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="@dimen/long2_dp"
+        android:layout_height="@dimen/medium1_dp"
+        android:text="@string/startview_next_button"
+        style="@style/MiBotonStyle" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.15" />
+
+</LinearLayout>

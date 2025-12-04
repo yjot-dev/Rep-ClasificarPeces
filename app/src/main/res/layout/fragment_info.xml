@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".application.mvvm.view.InfoFragment">
+
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/toolbar" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.05" />
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="@dimen/long2_dp"
+        android:layout_height="@dimen/long1_dp"
+        android:contentDescription="@string/infoview_photo_imageview"
+        android:src="@drawable/portada"
+        android:layout_gravity="center" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.05" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        tools:text="Guppy"
+        style="@style/MiEtiquetaStyle" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.05" />
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.65"
+        android:text=""
+        tools:text="El pez Guppy (Poecilia reticulata) es uno de los peces de agua dulce más populares."
+        style="@style/MiParrafoStyle" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.2" />
+
+</LinearLayout>

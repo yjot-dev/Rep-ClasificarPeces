@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fondo del icono de la app -->
+    <color name="ic_launcher_background">#B28F4F</color>
+    <!-- Tema claro -->
+    <color name="colorPrimaryLight">#FF6200EE</color>
+    <color name="colorPrimaryVariantLight">#FF3700B3</color>
+    <color name="colorSecondaryLight">#B8AB91</color>
+    <color name="colorSecondaryVariantLight">#FFB28F4F</color>
+    <color name="colorOnSecondaryLight">#FF000000</color>
+    <color name="colorOnPrimaryLight">#FFFFFFFF</color>
+    <!-- Tema oscuro -->
+    <color name="colorPrimaryDark">#FF6200EE</color>
+    <color name="colorPrimaryVariantDark">#FF3700B3</color>
+    <color name="colorSecondaryDark">#BC7802</color>
+    <color name="colorSecondaryVariantDark">#976815</color>
+    <color name="colorOnSecondaryDark">#FFFFFFFF</color>
+    <color name="colorOnPrimaryDark">#FF000000</color>
+</resources>
