@@ -14,6 +14,9 @@ recyclerview = "1.3.2"
 navVersion = "2.8.5"
 tf = "2.13.0"
 tfTaskVision = "0.4.3"
+mockk = "1.13.8"
+coroutines = "1.7.3"
+archCore = "2.2.0"
 hilt = "2.51.1"
 
 [libraries]
@@ -35,8 +38,13 @@ tensorflow-task-vision = { group = "org.tensorflow", name = "tensorflow-lite-tas
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "espressoCore" }
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espressoCore" }
 dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

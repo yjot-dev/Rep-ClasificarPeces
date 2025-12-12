@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,19 +21,22 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import com.yjotdev.clasificarpeces.R
 import com.yjotdev.clasificarpeces.application.mvvm.viewmodel.UiViewModel
+import com.yjotdev.clasificarpeces.application.utils.ImageProcessorHelper
 import com.yjotdev.clasificarpeces.databinding.FragmentDetectorBinding
 
 @AndroidEntryPoint
 class DetectorFragment : Fragment() {
 
+    @Inject lateinit var imageHelper: ImageProcessorHelper
     private lateinit var binding: FragmentDetectorBinding
     private lateinit var adapter: ItemsAdapter
     private var isDetectionReady = false
     private val viewModel: UiViewModel by activityViewModels()
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        uri?.let { viewModel.setFishImage(viewModel.uriToBitmap(requireContext(), uri)) }
+        uri?.let { viewModel.setFishImage(imageHelper.uriToBitmap(uri)) }
     }
     private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
         bitmap?.let { viewModel.setFishImage(bitmap) }
@@ -89,7 +93,7 @@ class DetectorFragment : Fragment() {
         binding.btnDetector.setOnClickListener {
             val currentImage = viewModel.uiState.value.fishImage
             currentImage?.let { bitmap ->
-                viewModel.detectorFish(requireContext(), bitmap)
+                viewModel.classifierResult(bitmap)
                 isDetectionReady = true
             }?: run {
                 Toast.makeText(context, R.string.detectorview_toast_null_photo, Toast.LENGTH_SHORT).show()
@@ -99,6 +103,8 @@ class DetectorFragment : Fragment() {
     }
 
     private fun observeViewModelState(){
+        val labels = requireContext().resources.getStringArray(R.array.infoview_name)
+        val descriptions = requireContext().resources.getStringArray(R.array.infoview_description)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
@@ -107,8 +113,19 @@ class DetectorFragment : Fragment() {
                         binding.imgPhoto.setImageBitmap(image)
                     }
                     uiState.result?.let { result ->
+                        //Formato del resultado
+                        val items = MutableList(result.size) {""}
+                        result.forEach { item ->
+                            val percent = (item.score * 100)
+                            val i = result.indexOf(item)
+                            items[i] = "${labels[i]} - ${percent.roundToInt()}%"
+                        }
+                        //Guarda datos en el viewModel
+                        val i = result.indexOf(result.maxBy { it.score })
+                        viewModel.setFishName(labels[i])
+                        viewModel.setFishDescription(descriptions[i])
                         //Guarda resultados en el adapter
-                        adapter.submitList(result)
+                        adapter.submitList(items)
                     }
                 }
             }

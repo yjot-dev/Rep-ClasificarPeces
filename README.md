@@ -7,7 +7,7 @@ su forma y color.
 # Características principales
 - 🪟 Interfaz clasica con XML
 - 📊 Integración con ViewModel + StateFlow
-- 🎨 Patrón de diseño arquitectónico con MVVM
+- 🎨 Patrón de diseño arquitectónico con MVVM + Hexagonal
 - 🧩 Inyección de dependencias con Hilt
 - 📱 Compatible con Android 7.0 (API 24) en adelante
 
