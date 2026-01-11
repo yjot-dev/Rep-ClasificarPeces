@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Fondo del icono de la app -->
-    <color name="ic_launcher_background">#B28F4F</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
     <!-- Tema claro -->
     <color name="colorPrimaryLight">#FF6200EE</color>
     <color name="colorPrimaryVariantLight">#FF3700B3</color>

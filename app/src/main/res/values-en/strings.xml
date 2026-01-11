@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Fish Classifier</string>
+    <string name="startview_title">FISH CLASSIFIER</string>
+    <string name="startview_next_button">CONTINUE</string>
+    <string name="detectorview_choosephoto_button">CHOOSE PHOTO</string>
+    <string name="detectorview_takephoto_button">TAKE PHOTO</string>
+    <string name="detectorview_detector_button">DETECT</string>
+    <string name="detectorview_headline">FISH TYPE</string>
+    <string name="detectorview_toast_null_photo">First choose or take a photo</string>
+    <string name="detectorview_toast_no_detection">You must first detect a fish</string>
+    <string name="infoview_photo_imageview">DETECTED FISH</string>
+    <string-array name="infoview_name">
+        <item>Betta</item>
+        <item>Guppy</item>
+        <item>Molly</item>
+    </string-array>
+    <string-array name="infoview_description">
+        <item>
+            Description:\nThe Betta fish (Betta splendens), known as the "Siamese fighting fish", is a
+            freshwater fish famous for its intense colors and long ornamental fins. Originating from
+            Southeast Asia, it belongs to the Osphronemidae family and has an organ called a labyrinth that
+            allows it to breathe oxygen directly from the air. Males are territorial and can display
+            aggressive behaviors towards other bettas, so they are often kept alone in aquariums. Its average
+            size is 6 to 7 cm and its life expectancy ranges from 2 to 5 years. It is an omnivorous fish that
+            feeds on insects, larvae, and commercial food. Reproduction is oviparous, and the male builds
+            bubble nests to protect the eggs. Thanks to its beauty and resilience, it is one of the most
+            popular fish in the global aquarium trade.
+        </item>
+        <item>
+            Description:\nThe Guppy fish (Poecilia reticulata) is one of the most popular freshwater fish in
+            the aquarium hobby due to its resilience, ease of care, and vibrant colors. Originating from
+            South America, it belongs to the Poeciliidae family and reaches between 2 and 6 cm in length.
+            It is characterized by its striking caudal fin and extraordinary reproductive capacity, as females
+            can give birth to live young several times a year. Its diet is omnivorous, consuming algae, small
+            invertebrates, and commercial food. It has a life expectancy of 1 to 3 years and adapts well
+            to community aquariums, making it ideal for beginners. In addition, its genetic diversity has
+            allowed for the creation of numerous varieties with unique patterns and colors.
+        </item>
+        <item>
+            Description:\nThe Molly fish (Poecilia sphenops) is one of the most popular species in the aquarium
+            hobby for its resilience and ease of care. Native to Central and South America, it belongs to the
+            Poeciliidae family and is characterized by being ovoviviparous, meaning the young are born live
+            after developing inside the mother. Its average size ranges between 6 and 10 cm, with color
+            varieties such as black, white, orange, and dalmatian. They are peaceful and social fish, ideal
+            for community aquariums, although they require well-oxygenated water with stable parameters. Their
+            diet is omnivorous, based on algae, small invertebrates, and commercial food. With a life expectancy
+            of 3 to 5 years, mollies are known for their adaptability, even in slightly brackish water, making
+            them a versatile option for hobbyists and beginners.
+        </item>
+    </string-array>
+</resources>
