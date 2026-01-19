@@ -32,7 +32,7 @@ se procesa dicha imagen y se da el resultado como clasificacion.
 un pez, luego se procesa dicha imagen y se da el resultado como clasificacion.
 
 # Ver video Demo
-No disponible aun
+[Ver en Youtube](https://youtu.be/3FDOKiVwNqk)
 
 # Contribución
 - Haz un fork del repositorio
