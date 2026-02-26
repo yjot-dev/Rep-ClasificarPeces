@@ -20,7 +20,7 @@ import com.yjotdev.clasificarpeces.domain.usecase.ClassifierUseCase
 import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UiViewModelTest {
+class ViewModelTest {
 
     // 1. Mocks
     private val classifierMock: ClassifierUseCase = mockk()

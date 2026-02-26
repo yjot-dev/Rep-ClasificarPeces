@@ -43,8 +43,7 @@ class UiViewModel @Inject constructor(
     /** Estado de los resultados de la detección **/
     fun classifierResult(image: Bitmap){
         viewModelScope.launch {
-            val result = classifierUseCase(image)
-            when (result) {
+            when (val result = classifierUseCase(image)) {
                 is Result.Success -> {
                     _uiState.update { it.copy(
                         fishName = result.data[0].label,
