@@ -13,8 +13,8 @@ android {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 3
+        versionName = "1.3"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
     }
     signingConfigs {

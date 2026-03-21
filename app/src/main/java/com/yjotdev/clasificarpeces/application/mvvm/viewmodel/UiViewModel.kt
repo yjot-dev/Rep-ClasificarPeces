@@ -45,10 +45,7 @@ class UiViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = classifierUseCase(image)) {
                 is Result.Success -> {
-                    _uiState.update { it.copy(
-                        fishName = result.data[0].label,
-                        result = result.data
-                    ) }
+                    _uiState.update { it.copy(result = result.data) }
                 }
                 is Result.Error -> {
                     _uiState.update { it.copy(result = null) }

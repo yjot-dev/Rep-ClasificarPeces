@@ -23,6 +23,7 @@ class ClassifierRepository @Inject constructor(
         result.forEach { item ->
             val i = result.indexOf(item)
             val data = ClassifierEntity(
+                index = result[i].index,
                 label = result[i].label,
                 score = result[i].score
             )

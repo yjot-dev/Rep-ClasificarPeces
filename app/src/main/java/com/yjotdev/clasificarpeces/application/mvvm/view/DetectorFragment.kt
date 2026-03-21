@@ -33,7 +33,7 @@ class DetectorFragment : Fragment() {
     @Inject lateinit var imageHelper: ImageProcessorHelper
     private lateinit var binding: FragmentDetectorBinding
     private lateinit var adapter: ItemsAdapter
-    private var isDetectionReady = false
+    private var isClickableList = false
     private val viewModel: UiViewModel by activityViewModels()
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let { viewModel.setFishImage(imageHelper.uriToBitmap(uri)) }
@@ -73,7 +73,7 @@ class DetectorFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = ItemsAdapter {
-            if(isDetectionReady) {
+            if(isClickableList) {
                 findNavController().navigate(R.id.action_detector_to_info)
             }else{
                 Toast.makeText(context, R.string.detectorview_toast_no_detection, Toast.LENGTH_SHORT).show()
@@ -94,10 +94,9 @@ class DetectorFragment : Fragment() {
             val currentImage = viewModel.uiState.value.fishImage
             currentImage?.let { bitmap ->
                 viewModel.classifierResult(bitmap)
-                isDetectionReady = true
             }?: run {
                 Toast.makeText(context, R.string.detectorview_toast_null_photo, Toast.LENGTH_SHORT).show()
-                isDetectionReady = false
+                isClickableList = false
             }
         }
     }
@@ -117,15 +116,18 @@ class DetectorFragment : Fragment() {
                         val items = MutableList(result.size) {""}
                         result.forEach { item ->
                             val percent = (item.score * 100)
-                            val i = result.indexOf(item)
+                            val i = item.index
                             items[i] = "${labels[i]} - ${percent.roundToInt()}%"
                         }
                         //Guarda datos en el viewModel
-                        val i = result.indexOf(result.maxBy { it.score })
-                        viewModel.setFishName(labels[i])
-                        viewModel.setFishDescription(descriptions[i])
+                        val bestItem = result.maxBy { it.score }
+                        val bestIndex = bestItem.index
+                        viewModel.setFishName(labels[bestIndex])
+                        viewModel.setFishDescription(descriptions[bestIndex])
                         //Guarda resultados en el adapter
                         adapter.submitList(items)
+                        //La lista se hace clicable
+                        isClickableList = true
                     }
                 }
             }
