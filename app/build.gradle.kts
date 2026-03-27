@@ -13,8 +13,8 @@ android {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.3"
+        versionCode = 4
+        versionName = "1.4"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
     }
     signingConfigs {
@@ -89,6 +89,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents)

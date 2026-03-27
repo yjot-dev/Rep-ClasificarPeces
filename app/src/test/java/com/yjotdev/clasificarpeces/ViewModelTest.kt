@@ -1,7 +1,9 @@
 package com.yjotdev.clasificarpeces
 
+import app.cash.turbine.test
 import android.graphics.Bitmap
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,6 +11,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -73,33 +76,63 @@ class ViewModelTest {
      * formatea los strings y actualiza todos los estados.
      */
     @Test
-    fun detectorFishUpdatesAllStatesOnSuccess() = runTest {
+    fun whenClassifierResultIsSuccessfulThenUiStateIsUpdatedWithData() = runTest {
         // GIVEN (Dado)
         val mockResults = listOf(
             ClassifierEntity(label = "Guppy", score = 0.95f),
             ClassifierEntity(label = "Molly", score = 0.05f)
         )
 
-        val successResult = Result.Success(mockResults)
-
         // Entrenamos al mock: Cuando llamen a classify, devuelve esta lista
-        coEvery { classifierMock.invoke(bitmapMock) } returns successResult
+        coEvery { classifierMock(bitmapMock) } returns Result.Success(mockResults)
 
-        // WHEN (Cuando)
-        viewModel.classifierResult(bitmapMock)
+        // Then: Observamos el estado
+        viewModel.uiState.test {
+            val initialState = awaitItem()
+            assertEquals(initialState.fishName, "")
 
-        // Esperamos a que la corrutina termine
-        testDispatcher.scheduler.advanceUntilIdle()
+            // WHEN (Cuando)
+            viewModel.classifierResult(bitmapMock)
+            advanceUntilIdle()
 
-        // THEN (Entonces) - Verificamos el estado final
-        val currentState = viewModel.uiState.value
+            // Then: Verificamos que el estado se actualizó con los datos
+            val successState = awaitItem()
+            assertEquals(mockResults, successState.result)
+            assertEquals("Guppy", successState.result?.first()?.label)
+        }
 
-        // 1. Verifica que tomó el primer resultado para el nombre
-        assertEquals("Guppy", currentState.fishName)
+        // Verificamos que el caso de uso fue llamado una vez
+        coVerify(exactly = 1) { classifierMock(bitmapMock) }
+    }
 
-        // 2. Verifica la lógica de formateo de porcentajes (95% y 5%)
-        val expectedList = mockResults
-        assertEquals(expectedList, currentState.result)
+    /**
+     * Prueba compleja: detectorFish
+     * Verifica que cuando el clasificador da error, el ViewModel
+     * envia una Exception con un mensaje en strings.
+     */
+    @Test
+    fun whenClassifierResultFailsThenUiStateResultIsNull() = runTest {
+        // Given: Preparamos el escenario para un error
+        val errorMessage = "Error en el motor de detección"
+        coEvery { classifierMock(bitmapMock) } returns Result.Error(Exception(errorMessage))
+
+        // Then: Observamos el estado
+        viewModel.uiState.test {
+            val initialState = awaitItem()
+            assertEquals(initialState.fishName, "")
+            assertEquals(null, initialState.result)
+
+            // When: Ejecutamos la acción
+            viewModel.classifierResult(bitmapMock)
+            advanceUntilIdle()
+
+            // Then: El resultado en el estado debe ser null tras el fallo
+            val errorState = viewModel.uiState.value.result
+            assertEquals(null, errorState)
+        }
+
+        // Verificamos la interacción
+        coVerify(exactly = 1) { classifierMock(bitmapMock) }
     }
 
     /**

@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ImageProcessorHelper @Inject constructor(
+class Helper @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     /** Convertir uri a bitmap **/

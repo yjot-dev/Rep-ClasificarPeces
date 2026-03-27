@@ -24,13 +24,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.yjotdev.clasificarpeces.R
 import com.yjotdev.clasificarpeces.application.mvvm.viewmodel.UiViewModel
-import com.yjotdev.clasificarpeces.application.utils.ImageProcessorHelper
+import com.yjotdev.clasificarpeces.application.utils.Helper
 import com.yjotdev.clasificarpeces.databinding.FragmentDetectorBinding
 
 @AndroidEntryPoint
 class DetectorFragment : Fragment() {
 
-    @Inject lateinit var imageHelper: ImageProcessorHelper
+    @Inject lateinit var imageHelper: Helper
     private lateinit var binding: FragmentDetectorBinding
     private lateinit var adapter: ItemsAdapter
     private var isClickableList = false
