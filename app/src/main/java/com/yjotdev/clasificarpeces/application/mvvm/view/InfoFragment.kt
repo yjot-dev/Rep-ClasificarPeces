@@ -60,8 +60,8 @@ class InfoFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     binding.imgPhoto.setImageBitmap(uiState.fishImage)
-                    binding.txtName.text = uiState.fishName
-                    binding.txtDescription.text = uiState.fishDescription
+                    binding.txtName.text = uiState.fishInfo.name
+                    binding.txtDescription.text = uiState.fishInfo.description
                 }
             }
         }

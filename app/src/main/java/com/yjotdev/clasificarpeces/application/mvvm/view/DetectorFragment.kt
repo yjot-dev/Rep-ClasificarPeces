@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,25 +20,23 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import com.yjotdev.clasificarpeces.R
 import com.yjotdev.clasificarpeces.application.mvvm.viewmodel.UiViewModel
-import com.yjotdev.clasificarpeces.application.utils.Helper
+import com.yjotdev.clasificarpeces.application.mvvm.model.ImageInput
 import com.yjotdev.clasificarpeces.databinding.FragmentDetectorBinding
+import com.yjotdev.clasificarpeces.R
 
 @AndroidEntryPoint
 class DetectorFragment : Fragment() {
 
-    @Inject lateinit var imageHelper: Helper
     private lateinit var binding: FragmentDetectorBinding
     private lateinit var adapter: ItemsAdapter
     private var isClickableList = false
     private val viewModel: UiViewModel by activityViewModels()
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        uri?.let { viewModel.setFishImage(imageHelper.uriToBitmap(uri)) }
+        uri?.let { viewModel.setFishImage(ImageInput.FromUri(uri)) }
     }
     private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
-        bitmap?.let { viewModel.setFishImage(bitmap) }
+        bitmap?.let { viewModel.setFishImage(ImageInput.FromBitmap(bitmap)) }
     }
 
     override fun onCreateView(
@@ -96,7 +93,6 @@ class DetectorFragment : Fragment() {
                 viewModel.classifierResult(bitmap)
             }?: run {
                 Toast.makeText(context, R.string.detectorview_toast_null_photo, Toast.LENGTH_SHORT).show()
-                isClickableList = false
             }
         }
     }
@@ -111,24 +107,14 @@ class DetectorFragment : Fragment() {
                         //Guarda imagen en el imageView
                         binding.imgPhoto.setImageBitmap(image)
                     }
-                    uiState.result?.let { result ->
-                        //Formato del resultado
-                        val items = MutableList(result.size) {""}
-                        result.forEach { item ->
-                            val percent = (item.score * 100)
-                            val i = item.index
-                            items[i] = "${labels[i]} - ${percent.roundToInt()}%"
-                        }
+                    uiState.fishResult.let {
                         //Guarda datos en el viewModel
-                        val bestItem = result.maxBy { it.score }
-                        val bestIndex = bestItem.index
-                        viewModel.setFishName(labels[bestIndex])
-                        viewModel.setFishDescription(descriptions[bestIndex])
+                        viewModel.showInfo(labels, descriptions)
                         //Guarda resultados en el adapter
-                        adapter.submitList(items)
-                        //La lista se hace clicable
-                        isClickableList = true
+                        adapter.submitList(viewModel.getTranslatedList(labels))
                     }
+                    //La lista se hace clicable
+                    isClickableList = !uiState.fishResult.isNullOrEmpty()
                 }
             }
         }

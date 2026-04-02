@@ -4,8 +4,7 @@ import android.graphics.Bitmap
 import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
 
 data class UiModel(
-    val fishName: String = "",
-    val fishDescription: String = "",
+    val fishInfo: FishInfoModel = FishInfoModel(),
     val fishImage: Bitmap? = null,
-    val result: List<ClassifierEntity>? = null
+    val fishResult: List<ClassifierEntity>? = null
 )

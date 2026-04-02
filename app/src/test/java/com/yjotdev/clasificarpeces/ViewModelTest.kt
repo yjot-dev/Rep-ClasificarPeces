@@ -16,8 +16,10 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import com.yjotdev.clasificarpeces.application.mvvm.model.FishInfoModel
 import com.yjotdev.clasificarpeces.application.mvvm.model.UiModel
 import com.yjotdev.clasificarpeces.application.mvvm.viewmodel.UiViewModel
+import com.yjotdev.clasificarpeces.application.utils.Helper
 import com.yjotdev.clasificarpeces.domain.core.Result
 import com.yjotdev.clasificarpeces.domain.usecase.ClassifierUseCase
 import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
@@ -26,7 +28,8 @@ import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
 class ViewModelTest {
 
     // 1. Mocks
-    private val classifierMock: ClassifierUseCase = mockk()
+    private val classifierMock: ClassifierUseCase = mockk() // Mockeamos el clasificador
+    private val helperMock: Helper = mockk() // Mockeamos el helper
     private val bitmapMock: Bitmap = mockk() // Mockeamos el bitmap
 
     // 2. ViewModel bajo prueba
@@ -38,7 +41,7 @@ class ViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         // Inyectamos el mock
-        viewModel = UiViewModel(classifierMock)
+        viewModel = UiViewModel(classifierMock, helperMock)
     }
 
     @After
@@ -47,27 +50,17 @@ class ViewModelTest {
     }
 
     /**
-     * Prueba que setFishName actualiza correctamente el StateFlow.
+     * Prueba que setFishInfo actualiza correctamente el StateFlow.
      */
     @Test
-    fun setFishNameUpdatesStateCorrectly() = runTest {
-        val expectedName = "Betta Splendens"
+    fun setFishInfoUpdatesStateCorrectly() = runTest {
+        val expectedFish = FishInfoModel(
+            name = "Betta Splendens",
+            description = "Pez de agua dulce muy colorido."
+        )
+        viewModel.setFishInfo(expectedFish)
 
-        viewModel.setFishName(expectedName)
-
-        assertEquals(expectedName, viewModel.uiState.value.fishName)
-    }
-
-    /**
-     * Prueba que setFishDescription actualiza el StateFlow.
-     */
-    @Test
-    fun setFishDescriptionUpdatesStateCorrectly() = runTest {
-        val expectedDesc = "Pez de agua dulce muy colorido."
-
-        viewModel.setFishDescription(expectedDesc)
-
-        assertEquals(expectedDesc, viewModel.uiState.value.fishDescription)
+        assertEquals(expectedFish, viewModel.uiState.value.fishInfo)
     }
 
     /**
@@ -89,7 +82,7 @@ class ViewModelTest {
         // Then: Observamos el estado
         viewModel.uiState.test {
             val initialState = awaitItem()
-            assertEquals(initialState.fishName, "")
+            assertEquals(initialState.fishInfo, FishInfoModel())
 
             // WHEN (Cuando)
             viewModel.classifierResult(bitmapMock)
@@ -97,8 +90,8 @@ class ViewModelTest {
 
             // Then: Verificamos que el estado se actualizó con los datos
             val successState = awaitItem()
-            assertEquals(mockResults, successState.result)
-            assertEquals("Guppy", successState.result?.first()?.label)
+            assertEquals(mockResults, successState.fishResult)
+            assertEquals("Guppy", successState.fishResult?.first()?.label)
         }
 
         // Verificamos que el caso de uso fue llamado una vez
@@ -119,15 +112,15 @@ class ViewModelTest {
         // Then: Observamos el estado
         viewModel.uiState.test {
             val initialState = awaitItem()
-            assertEquals(initialState.fishName, "")
-            assertEquals(null, initialState.result)
+            assertEquals(initialState.fishInfo, FishInfoModel())
+            assertEquals(null, initialState.fishResult)
 
             // When: Ejecutamos la acción
             viewModel.classifierResult(bitmapMock)
             advanceUntilIdle()
 
             // Then: El resultado en el estado debe ser null tras el fallo
-            val errorState = viewModel.uiState.value.result
+            val errorState = viewModel.uiState.value.fishResult
             assertEquals(null, errorState)
         }
 
@@ -138,7 +131,7 @@ class ViewModelTest {
     /**
      * Prueba que onCleared reinicia el estado a valores por defecto.
      * Nota: onCleared es protected, pero podemos probar el efecto si
-     * hubiera un método público que resetee o verificando el estado inicial.
+     * hubiera un proceso público que resetee o verificando el estado inicial.
      * Como no podemos llamar onCleared directamente, probamos el estado inicial
      * que es lo que onCleared restablece.
      */
@@ -147,7 +140,7 @@ class ViewModelTest {
         val initialState = UiModel() // Estado vacío por defecto
 
         // Asumiendo que UiModel() inicializa strings vacíos y nulos
-        assertEquals(initialState.fishName, viewModel.uiState.value.fishName)
-        assertEquals(initialState.result, viewModel.uiState.value.result)
+        assertEquals(initialState.fishInfo, viewModel.uiState.value.fishInfo)
+        assertEquals(initialState.fishResult, viewModel.uiState.value.fishResult)
     }
 }

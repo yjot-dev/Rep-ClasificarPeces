@@ -13,8 +13,8 @@ android {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.4"
+        versionCode = 5
+        versionName = "1.5"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
     }
     signingConfigs {
@@ -81,9 +81,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.androidx.activity)
     ksp(libs.dagger.hilt.android.compiler)
-    //Tensorflow y Vision artificial
+    //Tensorflow
     implementation(libs.tensorflow.lite)
-    implementation(libs.tensorflow.task.vision)
+    implementation(libs.tensorflow.lite.support)
     //Test
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

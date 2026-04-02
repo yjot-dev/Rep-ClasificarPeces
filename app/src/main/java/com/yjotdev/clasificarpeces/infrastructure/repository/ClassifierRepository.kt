@@ -1,6 +1,7 @@
 package com.yjotdev.clasificarpeces.infrastructure.repository
 
 import android.graphics.Bitmap
+import android.util.Log
 import javax.inject.Inject
 import javax.inject.Singleton
 import org.tensorflow.lite.support.label.Category
@@ -15,23 +16,24 @@ class ClassifierRepository @Inject constructor(
 ) : ClassifierPort{
     override suspend fun classify(image: Bitmap): Result<List<ClassifierEntity>> {
         val result = tensorflowSource.runInference(image)
+        Log.d("TfLite","Result: $result")
         return mapToEntity(result)
     }
 
     private fun mapToEntity(result: List<Category>): Result<List<ClassifierEntity>> {
-        val list = MutableList(result.size) {ClassifierEntity()}
-        result.forEach { item ->
-            val i = result.indexOf(item)
-            val data = ClassifierEntity(
-                index = result[i].index,
-                label = result[i].label,
-                score = result[i].score
-            )
-            list[i] = data
-        }
-        return if(list.isNotEmpty())
+        return if (result.isNotEmpty()) {
+            val list = MutableList(result.size){ClassifierEntity()}
+            result.forEach { item ->
+                val index = result.indexOf(item)
+                val data = ClassifierEntity(
+                    label = item.label,
+                    score = item.score
+                )
+                list[index] = data
+            }
             Result.Success(list)
-        else
+        } else {
             Result.Error(Exception("Pez no detectado"))
+        }
     }
 }
