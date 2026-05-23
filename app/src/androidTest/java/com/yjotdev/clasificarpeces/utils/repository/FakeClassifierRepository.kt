@@ -3,24 +3,24 @@ package com.yjotdev.clasificarpeces.utils.repository
 import android.graphics.Bitmap
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.yjotdev.clasificarpeces.domain.port.ClassifierPort
-import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
+import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
+import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
 import com.yjotdev.clasificarpeces.domain.core.Result
 
 @Singleton
-class FakeClassifierRepository @Inject constructor() : ClassifierPort{
-    override suspend fun classify(image: Bitmap): Result<List<ClassifierEntity>> {
+class FakeClassifierRepository @Inject constructor() : ClassifierRepository{
+    override suspend fun classify(image: Bitmap): Result<List<ClassifierModel>> {
         // Simulamos una respuesta exitosa inmediata sin usar TFLite
         val fakeData = listOf(
-            ClassifierEntity(
+            ClassifierModel(
                 label = "Betta",
                 score = 0.99f
             ),
-            ClassifierEntity(
+            ClassifierModel(
                 label = "Guppy",
                 score = 0.23f
             ),
-            ClassifierEntity(
+            ClassifierModel(
                 label = "Molly",
                 score = 0.06f
             )

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.StartFragment"
+        android:name="com.yjotdev.clasificarpeces.presentation.mvvm.ui.fragment.StartFragment"
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_start_to_detector"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/detectorFragment"
-        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.DetectorFragment"
+        android:name="com.yjotdev.clasificarpeces.presentation.mvvm.ui.fragment.DetectorFragment"
         android:label="@string/detectorview_detector_button"
         tools:layout="@layout/fragment_detector">
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.yjotdev.clasificarpeces.application.mvvm.view.InfoFragment"
+        android:name="com.yjotdev.clasificarpeces.presentation.mvvm.ui.fragment.InfoFragment"
         android:label="@string/infoview_photo_imageview"
         tools:layout="@layout/fragment_info" />
 </navigation>

@@ -16,13 +16,13 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import com.yjotdev.clasificarpeces.application.mvvm.model.FishInfoModel
-import com.yjotdev.clasificarpeces.application.mvvm.model.UiModel
-import com.yjotdev.clasificarpeces.application.mvvm.viewmodel.UiViewModel
-import com.yjotdev.clasificarpeces.application.utils.Helper
+import com.yjotdev.clasificarpeces.presentation.mvvm.state.FishInfoState
+import com.yjotdev.clasificarpeces.presentation.mvvm.state.UiState
+import com.yjotdev.clasificarpeces.presentation.mvvm.viewmodel.UiViewModel
+import com.yjotdev.clasificarpeces.presentation.utils.Helper
 import com.yjotdev.clasificarpeces.domain.core.Result
 import com.yjotdev.clasificarpeces.domain.usecase.ClassifierUseCase
-import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
+import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ViewModelTest {
@@ -32,7 +32,7 @@ class ViewModelTest {
     private val helperMock: Helper = mockk() // Mockeamos el helper
     private val bitmapMock: Bitmap = mockk() // Mockeamos el bitmap
 
-    // 2. ViewModel bajo prueba
+    // 2. ViewModel
     private lateinit var viewModel: UiViewModel
 
     private val testDispatcher = StandardTestDispatcher()
@@ -54,7 +54,7 @@ class ViewModelTest {
      */
     @Test
     fun setFishInfoUpdatesStateCorrectly() = runTest {
-        val expectedFish = FishInfoModel(
+        val expectedFish = FishInfoState(
             name = "Betta Splendens",
             description = "Pez de agua dulce muy colorido."
         )
@@ -72,8 +72,8 @@ class ViewModelTest {
     fun whenClassifierResultIsSuccessfulThenUiStateIsUpdatedWithData() = runTest {
         // GIVEN (Dado)
         val mockResults = listOf(
-            ClassifierEntity(label = "Guppy", score = 0.95f),
-            ClassifierEntity(label = "Molly", score = 0.05f)
+            ClassifierModel(label = "Guppy", score = 0.95f),
+            ClassifierModel(label = "Molly", score = 0.05f)
         )
 
         // Entrenamos al mock: Cuando llamen a classify, devuelve esta lista
@@ -82,7 +82,7 @@ class ViewModelTest {
         // Then: Observamos el estado
         viewModel.uiState.test {
             val initialState = awaitItem()
-            assertEquals(initialState.fishInfo, FishInfoModel())
+            assertEquals(initialState.fishInfo, FishInfoState())
 
             // WHEN (Cuando)
             viewModel.classifierResult(bitmapMock)
@@ -112,7 +112,7 @@ class ViewModelTest {
         // Then: Observamos el estado
         viewModel.uiState.test {
             val initialState = awaitItem()
-            assertEquals(initialState.fishInfo, FishInfoModel())
+            assertEquals(initialState.fishInfo, FishInfoState())
             assertEquals(null, initialState.fishResult)
 
             // When: Ejecutamos la acción
@@ -137,7 +137,7 @@ class ViewModelTest {
      */
     @Test
     fun initialStateIsEmpty() = runTest {
-        val initialState = UiModel() // Estado vacío por defecto
+        val initialState = UiState() // Estado vacío por defecto
 
         // Asumiendo que UiModel() inicializa strings vacíos y nulos
         assertEquals(initialState.fishInfo, viewModel.uiState.value.fishInfo)

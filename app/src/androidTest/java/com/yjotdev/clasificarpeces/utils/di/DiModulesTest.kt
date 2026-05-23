@@ -5,8 +5,8 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import dagger.Binds
 import javax.inject.Singleton
-import com.yjotdev.clasificarpeces.infrastructure.di.DiModules
-import com.yjotdev.clasificarpeces.domain.port.ClassifierPort
+import com.yjotdev.clasificarpeces.data.di.DiModules
+import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
 import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepository
 
 @Module
@@ -20,5 +20,5 @@ abstract class DiModulesTest {
     @Singleton
     abstract fun bindClassifierRepository(
         impl: FakeClassifierRepository
-    ): ClassifierPort
+    ): ClassifierRepository
 }

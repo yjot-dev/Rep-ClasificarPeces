@@ -2,16 +2,14 @@ package com.yjotdev.clasificarpeces.domain.usecase
 
 import android.graphics.Bitmap
 import javax.inject.Inject
-import javax.inject.Singleton
 import com.yjotdev.clasificarpeces.domain.core.Result
-import com.yjotdev.clasificarpeces.domain.port.ClassifierPort
-import com.yjotdev.clasificarpeces.domain.entity.ClassifierEntity
+import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
+import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
 
-@Singleton
 class ClassifierUseCase @Inject constructor(
-    private val classifierPort: ClassifierPort
+    private val classifierRepository: ClassifierRepository
 ) {
-    suspend operator fun invoke(bitmap: Bitmap): Result<List<ClassifierEntity>> {
-        return classifierPort.classify(bitmap)
+    suspend operator fun invoke(bitmap: Bitmap): Result<List<ClassifierModel>> {
+        return classifierRepository.classify(bitmap)
     }
 }

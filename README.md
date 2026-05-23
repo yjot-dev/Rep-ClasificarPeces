@@ -4,8 +4,8 @@ CP es una aplicación móvil especializada, diseñada para identificar tres de l
 # Características principales
 - 🪟 Interfaz clasica con XML
 - 📊 Integración con ViewModel + StateFlow
-- 🎨 Patrón de diseño arquitectónico con MVVM + Hexagonal
-- 🧩 Inyección de dependencias con Hilt
+- 🎨 Patrón de diseño arquitectónico con MVVM + Clean Architecture
+- 💉 Inyección de dependencias con Hilt
 - 📱 Compatible con Android 7.0 (API 24) en adelante
 
 # Instalación
