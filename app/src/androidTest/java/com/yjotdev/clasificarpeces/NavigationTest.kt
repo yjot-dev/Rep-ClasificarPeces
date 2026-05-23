@@ -56,7 +56,7 @@ class NavigationTest {
         // 2. PANTALLA DETECTOR
         onView(withId(R.id.btnChoosePhoto)).check(matches(isDisplayed()))
 
-        // Preparacion de imagen Fake
+        // Preparación de imagen Fake
         val resultData = Intent()
         resultData.data = createFakeImageUri()
         val result = ActivityResult(Activity.RESULT_OK, resultData)
@@ -64,7 +64,7 @@ class NavigationTest {
         // Intercepta cualquier intent que no sea interno de la app
         intending(not(isInternal())).respondWith(result)
 
-        // Simular Clic al elegir foto de galeria
+        // Simular Clic al elegir foto de galería
         onView(withId(R.id.btnChoosePhoto)).perform(click())
 
         // Verificamos que la imagen se cargó
@@ -73,7 +73,7 @@ class NavigationTest {
         // Simular Clic al detectar imagen
         onView(withId(R.id.btnDetector)).perform(click())
 
-        // Verificamos que la lista se cargo
+        // Verificamos que la lista se cargó
         waitForView(R.id.listDetector)
 
         // Simular Clic al topar la lista

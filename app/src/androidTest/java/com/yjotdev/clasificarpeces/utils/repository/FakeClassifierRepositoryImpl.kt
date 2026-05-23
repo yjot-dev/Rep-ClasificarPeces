@@ -8,7 +8,7 @@ import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
 import com.yjotdev.clasificarpeces.domain.core.Result
 
 @Singleton
-class FakeClassifierRepository @Inject constructor() : ClassifierRepository{
+class FakeClassifierRepositoryImpl @Inject constructor() : ClassifierRepository{
     override suspend fun classify(image: Bitmap): Result<List<ClassifierModel>> {
         // Simulamos una respuesta exitosa inmediata sin usar TFLite
         val fakeData = listOf(

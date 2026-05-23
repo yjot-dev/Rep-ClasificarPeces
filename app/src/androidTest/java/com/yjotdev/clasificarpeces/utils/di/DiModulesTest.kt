@@ -7,7 +7,7 @@ import dagger.Binds
 import javax.inject.Singleton
 import com.yjotdev.clasificarpeces.data.di.DiModules
 import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
-import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepository
+import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepositoryImpl
 
 @Module
 @TestInstallIn(
@@ -19,6 +19,6 @@ abstract class DiModulesTest {
     @Binds
     @Singleton
     abstract fun bindClassifierRepository(
-        impl: FakeClassifierRepository
+        impl: FakeClassifierRepositoryImpl
     ): ClassifierRepository
 }
