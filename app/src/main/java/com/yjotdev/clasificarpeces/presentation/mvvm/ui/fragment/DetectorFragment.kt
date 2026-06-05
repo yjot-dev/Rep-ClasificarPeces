@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.yjotdev.clasificarpeces.presentation.mvvm.viewmodel.UiViewModel
+import com.yjotdev.clasificarpeces.presentation.mvvm.ui.adapter.ItemsAdapter
 import com.yjotdev.clasificarpeces.presentation.utils.ImageInput
+import com.yjotdev.clasificarpeces.presentation.navigation.UiEvent
 import com.yjotdev.clasificarpeces.databinding.FragmentDetectorBinding
 import com.yjotdev.clasificarpeces.R
-import com.yjotdev.clasificarpeces.presentation.mvvm.ui.adapter.ItemsAdapter
 
 @AndroidEntryPoint
 class DetectorFragment : Fragment() {
@@ -103,8 +105,8 @@ class DetectorFragment : Fragment() {
     }
 
     private fun observeViewModelState(){
-        val labels = requireContext().resources.getStringArray(R.array.infoview_name)
-        val descriptions = requireContext().resources.getStringArray(R.array.infoview_description)
+        val labels = resources.getStringArray(R.array.infoview_name)
+        val descriptions = resources.getStringArray(R.array.infoview_description)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
@@ -120,6 +122,20 @@ class DetectorFragment : Fragment() {
                     }
                     //La lista se hace clicable
                     isClickableList = !uiState.fishResult.isNullOrEmpty()
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.eventChannel.collect { event ->
+                    when (event) {
+                        // Muestra un mensaje de exito o error en el Toast
+                        is UiEvent.ShowToast -> Toast.makeText(
+                            context, event.message, Toast.LENGTH_SHORT
+                        ).show()
+                        // Muestra el error en el Log
+                        is UiEvent.ShowLog -> Log.d("Https",event.message)
+                    }
                 }
             }
         }

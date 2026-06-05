@@ -53,4 +53,5 @@
             adaptabilidad, incluso en aguas ligeramente salobres, lo que los convierte en una
             opción versátil para aficionados y principiantes.</item>
     </string-array>
+    <string name="toast_classifier_error">Error al clasificar pez</string>
 </resources>

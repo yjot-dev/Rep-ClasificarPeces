@@ -7,7 +7,9 @@ import dagger.Binds
 import javax.inject.Singleton
 import com.yjotdev.clasificarpeces.data.di.DiModules
 import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
+import com.yjotdev.clasificarpeces.domain.repository.StringRepository
 import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepositoryImpl
+import com.yjotdev.clasificarpeces.utils.repository.FakeStringRepositoryImpl
 
 @Module
 @TestInstallIn(
@@ -16,9 +18,20 @@ import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepositoryImpl
 )
 @Suppress("unused")
 abstract class DiModulesTest {
+
+    // --- BINDINGS (Abstracciones) ---
     @Binds
     @Singleton
     abstract fun bindClassifierRepository(
         impl: FakeClassifierRepositoryImpl
     ): ClassifierRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindStringRepository(
+        impl: FakeStringRepositoryImpl
+    ): StringRepository
+
+    // --- PROVIDERS (Instancias externas) ---
+    // No son necesarios aqui
 }

@@ -1,6 +1,5 @@
 package com.yjotdev.clasificarpeces
 
-import android.graphics.Bitmap
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -11,6 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import com.yjotdev.clasificarpeces.domain.core.Result
 import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
+import com.yjotdev.clasificarpeces.domain.model.ImageModel
 import com.yjotdev.clasificarpeces.domain.usecase.ClassifierUseCase
 import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
 
@@ -21,7 +21,6 @@ class ClassifierUseCaseTest {
 
     private lateinit var classifierRepository: ClassifierRepository
     private lateinit var classifierUseCase: ClassifierUseCase
-    private val mockBitmap: Bitmap = mockk()
 
     @Before
     fun setUp() {
@@ -31,34 +30,36 @@ class ClassifierUseCaseTest {
 
     @Test
     fun whenClassifierUseCaseIsInvokedSuccessfullyThenItReturnsAListOfClassifications() = runTest {
+        val image = ImageModel("base64:as32ws56")
         // Given
         val fakeClassifications = listOf(
             ClassifierModel(label = "Betta", score = 0.9f),
             ClassifierModel(label = "Guppy", score = 0.05f)
         )
-        coEvery { classifierRepository.classify(mockBitmap) } returns Result.Success(fakeClassifications)
+        coEvery { classifierRepository.classifier(image) } returns Result.Success(fakeClassifications)
 
         // When
-        val result = classifierUseCase(mockBitmap)
+        val result = classifierUseCase(image)
 
         // Then
         assertTrue(result is Result.Success)
         assertEquals(fakeClassifications, (result as Result.Success).data)
-        coVerify(exactly = 1) { classifierRepository.classify(mockBitmap) }
+        coVerify(exactly = 1) { classifierRepository.classifier(image) }
     }
 
     @Test
     fun whenClassifierUseCaseFailsThenItReturnsAnError() = runTest {
+        val image = ImageModel("")
         // Given
         val errorMessage = Exception("Model failed to classify")
-        coEvery { classifierRepository.classify(mockBitmap) } returns Result.Error(errorMessage)
+        coEvery { classifierRepository.classifier(image) } returns Result.Error(errorMessage)
 
         // When
-        val result = classifierUseCase(mockBitmap)
+        val result = classifierUseCase(image)
 
         // Then
         assertTrue(result is Result.Error)
         assertEquals(errorMessage, (result as Result.Error).exception)
-        coVerify(exactly = 1) { classifierRepository.classify(mockBitmap) }
+        coVerify(exactly = 1) { classifierRepository.classifier(image) }
     }
 }

@@ -48,4 +48,5 @@
             them a versatile option for hobbyists and beginners.
         </item>
     </string-array>
+    <string name="toast_classifier_error">Error classifying fish</string>
 </resources>

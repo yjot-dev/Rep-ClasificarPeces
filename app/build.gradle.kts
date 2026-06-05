@@ -29,6 +29,7 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             isDebuggable = true
+            buildConfigField("String", "API_BASE_URL", "\"${project.findProperty("API_BASE_URL_DEBUG")}\"")
         }
         release {
             signingConfig = signingConfigs.getByName("release")
@@ -41,6 +42,7 @@ android {
             ndk {
                 debugSymbolLevel = "FULL"
             }
+            buildConfigField("String", "API_BASE_URL", "\"${project.findProperty("API_BASE_URL_RELEASE")}\"")
         }
     }
     compileOptions {
@@ -81,9 +83,12 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.androidx.activity)
     ksp(libs.dagger.hilt.android.compiler)
-    //Tensorflow
-    implementation(libs.tensorflow.lite)
-    implementation(libs.tensorflow.lite.support)
+    //Retrofit
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.retrofit2.gson)
+    implementation(libs.google.code.gson)
+    //Logging Interceptor
+    implementation(libs.squareup.okhttp3.logging.interceptor)
     //Test
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
