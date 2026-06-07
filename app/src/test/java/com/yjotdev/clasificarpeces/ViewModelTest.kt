@@ -62,7 +62,7 @@ class UiViewModelTest {
     fun `when classifierResult is called and returns success then update fishResult state`() = runTest {
         // GIVEN
         val fakeBase64 = "base64EncodedString"
-        val expectedApiString = ImageModel("data:image/jpeg;base64,$fakeBase64")
+        val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
         val expectedResults = listOf(
             ClassifierModel(label = "Trucha", score = 0.95f),
             ClassifierModel(label = "Salmon", score = 0.05f)
@@ -93,7 +93,7 @@ class UiViewModelTest {
     fun `when classifierResult is called and returns error then set fishResult null and send events`() = runTest {
         // GIVEN
         val fakeBase64 = "base64ErrorString"
-        val expectedApiString = ImageModel("data:image/jpeg;base64,$fakeBase64")
+        val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
         val exceptionMessage = "Network Timeout"
         val exception = Exception(exceptionMessage)
         val toastErrorMessage = "Error al clasificar"
