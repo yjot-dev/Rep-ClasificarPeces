@@ -59,7 +59,7 @@ class UiViewModelTest {
     }
 
     @Test
-    fun `when classifierResult is called and returns success then update fishResult state`() = runTest {
+    fun whenClassifierResultIsCalledAndReturnsSuccessThenUpdateFishResultState() = runTest {
         // GIVEN
         val fakeBase64 = "base64EncodedString"
         val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
@@ -90,7 +90,7 @@ class UiViewModelTest {
     }
 
     @Test
-    fun `when classifierResult is called and returns error then set fishResult null and send events`() = runTest {
+    fun whenClassifierResultIsCalledAndReturnsErrorThenSetFishResultNullAndSendEvents() = runTest {
         // GIVEN
         val fakeBase64 = "base64ErrorString"
         val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
