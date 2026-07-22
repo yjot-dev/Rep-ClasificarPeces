@@ -1,12 +1,14 @@
 <com.google.android.material.appbar.MaterialToolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorSecondaryVariant"
     android:elevation="@dimen/short2_dp"
     app:titleTextColor="?attr/colorOnPrimary"
     app:navigationIcon="@drawable/arrow_back_70"
-    app:navigationIconTint="?attr/colorOnPrimary" />
+    app:navigationIconTint="?attr/colorOnPrimary"
+    app:titleCentered="true"
+    tools:title="Mi titulo" />

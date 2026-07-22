@@ -7,14 +7,10 @@
     android:orientation="vertical"
     tools:context=".presentation.mvvm.ui.fragment.DetectorFragment">
 
-    <include
-        android:id="@+id/includeToolbar"
-        layout="@layout/toolbar" />
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="1" />
 
     <FrameLayout
         android:id="@+id/btnChoosePhoto"
@@ -42,7 +38,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btnTakePhoto"
@@ -54,7 +50,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btnDetector"
@@ -66,7 +62,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,6 +80,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="1" />
 
 </LinearLayout>

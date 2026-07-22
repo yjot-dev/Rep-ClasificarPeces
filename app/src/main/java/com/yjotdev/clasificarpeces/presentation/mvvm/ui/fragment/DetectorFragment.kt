@@ -16,10 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.yjotdev.clasificarpeces.presentation.mvvm.viewmodel.UiViewModel
 import com.yjotdev.clasificarpeces.presentation.mvvm.ui.adapter.ItemsAdapter
@@ -52,23 +48,9 @@ class DetectorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbar()
         setupRecyclerView()
         setupClickListeners()
         observeViewModelState()
-    }
-
-    private fun setToolbar(){
-        val toolbar = binding.includeToolbar.toolbar
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Solo padding arriba para que baje y no choque con la hora
-            v.setPadding(0, systemBars.top, 0, 0)
-            insets
-        }
     }
 
     private fun setupRecyclerView() {

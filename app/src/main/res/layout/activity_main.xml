@@ -8,6 +8,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/toolbar" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentNav"
         android:name="androidx.navigation.fragment.NavHostFragment"

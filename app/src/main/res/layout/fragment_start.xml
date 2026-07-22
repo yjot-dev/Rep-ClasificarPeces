@@ -7,6 +7,11 @@
     android:orientation="vertical"
     tools:context=".presentation.mvvm.ui.fragment.StartFragment">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/short1_dp"
+        android:layout_weight="0.25" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/long2_dp"
@@ -16,7 +21,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.2" />
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +32,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.65" />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btnNext"
@@ -39,6 +44,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.15" />
+        android:layout_weight="0.25" />
 
 </LinearLayout>

@@ -10,11 +10,6 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.launch
 import kotlin.getValue
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,21 +32,7 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbar()
         observeViewModelState()
-    }
-
-    private fun setToolbar(){
-        val toolbar = binding.includeToolbar.toolbar
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Solo padding arriba para que baje y no choque con la hora
-            v.setPadding(0, systemBars.top, 0, 0)
-            insets
-        }
     }
 
     private fun observeViewModelState(){

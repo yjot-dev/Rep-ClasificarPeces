@@ -7,14 +7,10 @@
     android:orientation="vertical"
     tools:context=".presentation.mvvm.ui.fragment.InfoFragment">
 
-    <include
-        android:id="@+id/includeToolbar"
-        layout="@layout/toolbar" />
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.25" />
 
     <ImageView
         android:id="@+id/imgPhoto"
@@ -27,7 +23,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.25" />
 
     <TextView
         android:id="@+id/txtName"
@@ -41,13 +37,13 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.25" />
 
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.65"
+        android:layout_weight="1"
         android:text=""
         tools:text="El pez Guppy (Poecilia reticulata) es uno de los peces de agua dulce más populares."
         style="@style/MiParrafoStyle" />
@@ -55,6 +51,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.25" />
 
 </LinearLayout>
