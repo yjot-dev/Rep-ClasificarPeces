@@ -2,7 +2,12 @@
 <resources>
     <dimen name="short1_dp">0dp</dimen>
     <dimen name="short2_dp">4dp</dimen>
-    <dimen name="medium1_dp">70dp</dimen>
+    <dimen name="short3_dp">10dp</dimen>
+    <dimen name="short4_dp">20dp</dimen>
+    <dimen name="medium1_dp">50dp</dimen>
+    <dimen name="medium2_dp">70dp</dimen>
+    <dimen name="medium3_dp">120dp</dimen>
     <dimen name="long1_dp">200dp</dimen>
-    <dimen name="long2_dp">300dp</dimen>
+    <dimen name="long2_dp">250dp</dimen>
+    <dimen name="long3_dp">300dp</dimen>
 </resources>

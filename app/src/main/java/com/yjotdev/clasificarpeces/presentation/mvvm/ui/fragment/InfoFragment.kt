@@ -6,10 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
 import kotlinx.coroutines.launch
 import kotlin.getValue
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,13 +36,20 @@ class InfoFragment : Fragment() {
     }
 
     private fun observeViewModelState(){
-        binding.txtDescription.movementMethod = ScrollingMovementMethod()
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    binding.imgPhoto.setImageBitmap(uiState.fishImage)
-                    binding.txtName.text = uiState.fishInfo.name
-                    binding.txtDescription.text = uiState.fishInfo.description
+                    binding.tvCommonName.text = uiState.fishInfo.commonName
+                    binding.tvScientificName.text = uiState.fishInfo.scientificName
+                    binding.tvType.text = uiState.fishInfo.type
+                    binding.tvNaturalHabitat.text = uiState.fishInfo.naturalHabitat
+                    binding.tvDiet.text = uiState.fishInfo.diet
+                    binding.tvPH.text = uiState.fishInfo.ph
+                    binding.tvTemperature.text = uiState.fishInfo.temperature
+                    binding.tvSpace.text = uiState.fishInfo.space
+                    binding.ivImageUri.load(uiState.fishInfo.imageUri) {
+                        crossfade(true)
+                    }
                 }
             }
         }

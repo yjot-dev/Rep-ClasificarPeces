@@ -4,7 +4,7 @@
 
 ## 1. CONTEXTO DEL PROYECTO
 - **Nombre:** Clasificador de Peces (CP)
-- **Descripción:** CP es una aplicación móvil especializada diseñada para identificar tres de las especies de peces de acuario más comunes (Guppy, Betta y Molly) a partir de una imagen mediante el análisis de la forma y el color.
+- **Descripción:** CP es una aplicación diseñada para los amantes de los acuarios domésticos. Su objetivo es ofrecer información confiable y organizada sobre las especies marinas más comunes que se pueden mantener en casa, incluyendo peces, caracoles, tortugas y gambas.
 
 ## 2. STACK TECNOLÓGICO
 El proyecto utiliza las siguientes tecnologías y patrones:

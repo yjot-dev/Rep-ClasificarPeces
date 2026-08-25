@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Estilo para Títulos -->
-    <style name="MiTituloStyle">
+    <style name="TextViewTitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
-
-    <!-- Estilo para Etiquetas -->
-    <style name="MiEtiquetaStyle">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <!-- Estilo para Parrafos -->
-    <style name="MiParrafoStyle">
+    <!-- Estilo para Subtitulos -->
+    <style name="TextViewSubtitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- Estilo para Textos -->
+    <style name="TextViewMultiLine" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:textAlignment">textStart</item>
-        <item name="android:maxLines">12</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:singleLine">false</item>
         <item name="android:inputType">textMultiLine</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:layout_marginStart">40dp</item>
-        <item name="android:layout_marginEnd">40dp</item>
+    </style>
+
+    <style name="TextViewOneLine" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <!-- Estilo para EditText -->
+    <style name="EditTextFilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:inputType">text</item>
     </style>
 
     <!-- Estilo para Botones -->
-    <style name="MiBotonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">?attr/colorSecondaryVariant</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+    <style name="Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">20dp</item>

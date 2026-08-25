@@ -5,27 +5,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yjotdev.clasificarpeces.databinding.ItemsBinding
+import com.yjotdev.clasificarpeces.databinding.AdapterSpeciesBinding
+import com.yjotdev.clasificarpeces.domain.model.SpeciesModel
 
 class ItemsAdapter (
-    private val onAnyItemClicked: () -> Unit
-) : ListAdapter<String, ItemsAdapter.ViewHolder>(DiffCallback) {
+    private val onAnyItemClicked: (SpeciesModel) -> Unit
+) : ListAdapter<SpeciesModel, ItemsAdapter.ViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<SpeciesModel>() {
+        override fun areItemsTheSame(oldItem: SpeciesModel, newItem: SpeciesModel): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: SpeciesModel, newItem: SpeciesModel): Boolean {
             return oldItem == newItem
         }
     }
 
-    class ViewHolder(val binding: ItemsBinding) :
+    class ViewHolder(val binding: AdapterSpeciesBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemsBinding.inflate(
+        val binding = AdapterSpeciesBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -34,11 +35,13 @@ class ItemsAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Asignamos el texto de la lista al TextView
-        holder.binding.txtResult.text = getItem(position)
-        // Evento de click en un item
+        // Asignamos los datos a los TextView del item
+        val item = getItem(position)
+        holder.binding.tvCommonName.text = item.commonName
+        holder.binding.tvScientificName.text = item.scientificName
+        // Evento de clic en un item
         holder.itemView.setOnClickListener {
-            onAnyItemClicked()
+            onAnyItemClicked(item)
         }
     }
 }

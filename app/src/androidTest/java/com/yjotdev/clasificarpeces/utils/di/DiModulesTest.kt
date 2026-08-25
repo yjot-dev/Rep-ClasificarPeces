@@ -6,9 +6,9 @@ import dagger.hilt.testing.TestInstallIn
 import dagger.Binds
 import javax.inject.Singleton
 import com.yjotdev.clasificarpeces.data.di.DiModules
-import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
+import com.yjotdev.clasificarpeces.domain.repository.SpeciesRepository
 import com.yjotdev.clasificarpeces.domain.repository.StringRepository
-import com.yjotdev.clasificarpeces.utils.repository.FakeClassifierRepositoryImpl
+import com.yjotdev.clasificarpeces.utils.repository.FakeSpeciesRepositoryImpl
 import com.yjotdev.clasificarpeces.utils.repository.FakeStringRepositoryImpl
 
 @Module
@@ -23,8 +23,8 @@ abstract class DiModulesTest {
     @Binds
     @Singleton
     abstract fun bindClassifierRepository(
-        impl: FakeClassifierRepositoryImpl
-    ): ClassifierRepository
+        impl: FakeSpeciesRepositoryImpl
+    ): SpeciesRepository
 
     @Binds
     @Singleton

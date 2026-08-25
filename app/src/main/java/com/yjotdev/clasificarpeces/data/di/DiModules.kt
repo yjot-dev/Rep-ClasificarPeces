@@ -7,11 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import dagger.Provides
 import retrofit2.Retrofit
-import com.yjotdev.clasificarpeces.data.repository.ClassifierRepositoryImpl
+import com.yjotdev.clasificarpeces.data.repository.SpeciesRepositoryImpl
 import com.yjotdev.clasificarpeces.data.repository.StringRepositoryImpl
 import com.yjotdev.clasificarpeces.data.remote.network.RetrofitBuilder
-import com.yjotdev.clasificarpeces.data.remote.api.ClassifierApi
-import com.yjotdev.clasificarpeces.domain.repository.ClassifierRepository
+import com.yjotdev.clasificarpeces.data.remote.api.SpeciesApi
+import com.yjotdev.clasificarpeces.domain.repository.SpeciesRepository
 import com.yjotdev.clasificarpeces.domain.repository.StringRepository
 
 @Module
@@ -23,8 +23,8 @@ abstract class DiModules {
     @Binds
     @Singleton
     abstract fun bindClassifierRepository(
-        impl: ClassifierRepositoryImpl
-    ): ClassifierRepository
+        impl: SpeciesRepositoryImpl
+    ): SpeciesRepository
 
     @Binds
     @Singleton
@@ -42,8 +42,8 @@ abstract class DiModules {
 
         @Provides
         @Singleton
-        fun provideClassifierApi(retrofit: Retrofit): ClassifierApi {
-            return retrofit.create(ClassifierApi::class.java)
+        fun provideClassifierApi(retrofit: Retrofit): SpeciesApi {
+            return retrofit.create(SpeciesApi::class.java)
         }
     }
 }

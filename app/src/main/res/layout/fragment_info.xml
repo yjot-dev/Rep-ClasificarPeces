@@ -1,56 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".presentation.mvvm.ui.fragment.InfoFragment">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.25" />
-
-    <ImageView
-        android:id="@+id/imgPhoto"
-        android:layout_width="@dimen/long2_dp"
-        android:layout_height="@dimen/long1_dp"
-        android:contentDescription="@string/infoview_photo_imageview"
-        android:src="@drawable/portada"
-        android:layout_gravity="center" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.25" />
-
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text=""
-        tools:text="Guppy"
-        style="@style/MiEtiquetaStyle" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.25" />
-
-    <TextView
-        android:id="@+id/txtDescription"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text=""
-        tools:text="El pez Guppy (Poecilia reticulata) es uno de los peces de agua dulce más populares."
-        style="@style/MiParrafoStyle" />
+        android:columnCount="2"
+        android:rowCount="10"
+        android:paddingHorizontal="@dimen/short4_dp">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/short1_dp"
-        android:layout_weight="0.25" />
+        <!-- Fila 0: Imagen que ocupa ambas columnas -->
+        <ImageView
+            android:id="@+id/ivImageUri"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/long2_dp"
+            android:layout_columnSpan="2"
+            android:contentDescription="@string/startview_title"
+            android:src="@drawable/portada" />
 
-</LinearLayout>
+        <!-- Fila 1: Salto de linea -->
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/short3_dp"
+            android:layout_columnSpan="2" />
+
+        <!-- Fila 2: Nombre Común -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview1"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvCommonName"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="Guppy"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 3: Nombre Científico -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview2"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvScientificName"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="Poecilia reticulata"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 4: Tipo -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview3"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="Pez"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 5: Hábitat -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview4"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvNaturalHabitat"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="Sur y Centro América"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 6: Dieta -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview5"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvDiet"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="Algas"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 7: PH -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview6"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvPH"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="6.5 - 7.5"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 8: Temperatura -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview7"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="22 °C - 24 °C"
+            style="@style/TextViewMultiLine" />
+
+        <!-- Fila 9: Espacio -->
+        <TextView
+            android:layout_width="@dimen/medium3_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:text="@string/infoview_textview8"
+            android:textStyle="bold"
+            style="@style/TextViewMultiLine" />
+        <TextView
+            android:id="@+id/tvSpace"
+            android:layout_width="@dimen/long2_dp"
+            android:layout_height="@dimen/medium2_dp"
+            android:paddingHorizontal="@dimen/short3_dp"
+            tools:text="10L - 15L"
+            style="@style/TextViewMultiLine" />
+    </GridLayout>
+</ScrollView>

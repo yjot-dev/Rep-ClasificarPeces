@@ -1,57 +1,19 @@
 <resources>
-    <string name="app_name">Clasificar Peces</string>
+    <string name="app_name">CP</string>
     <string name="startview_title">CLASIFICADOR DE PECES</string>
-    <string name="startview_next_button">CONTINUAR</string>
-    <string name="detectorview_choosephoto_button">ELEGIR FOTO</string>
-    <string name="detectorview_takephoto_button">TOMAR FOTO</string>
-    <string name="detectorview_detector_button">DETECTAR</string>
-    <string name="detectorview_headline">TIPO DE PEZ</string>
-    <string name="detectorview_toast_null_photo">Primero elija o tome una foto</string>
-    <string name="detectorview_toast_no_detection">Primero debe detectar un pez</string>
-    <string name="infoview_photo_imageview">PEZ DETECTADO</string>
-    <string-array name="infoview_name">
-        <item>Betta</item>
-        <item>Guppy</item>
-        <item>Molly</item>
-    </string-array>
-    <string-array name="infoview_description">
-        <item>
-            Descripción:\nEl pez Betta (Betta splendens), conocido como “luchador
-            de Siam”, es un pez de agua dulce famoso por sus intensos colores y
-            largas aletas ornamentales. Originario del sudeste asiático, pertenece
-            a la familia Osphronemidae y posee un órgano llamado laberinto que le
-            permite respirar oxígeno directamente del aire. Los machos son territoriales
-            y pueden mostrar comportamientos agresivos hacia otros bettas, por lo que
-            suelen mantenerse solos en acuarios. Su tamaño promedio es de 6 a 7 cm y su
-            esperanza de vida oscila entre 2 y 5 años. Es un pez omnívoro que se alimenta
-            de insectos, larvas y alimento comercial. La reproducción es ovípara y el
-            macho construye nidos de burbujas para proteger los huevos. Gracias a su
-            belleza y resistencia, es uno de los peces más populares en la acuariofilia
-            mundial.</item>
-        <item>
-            Descripción:\nEl pez Guppy (Poecilia reticulata) es uno de los peces de
-            agua dulce más populares en la acuariofilia por su resistencia, facilidad
-            de cuidado y vivos colores. Originario de América del Sur, pertenece a la
-            familia Poeciliidae y alcanza entre 2 y 6 cm de longitud. Se caracteriza
-            por su aleta caudal llamativa y su capacidad reproductiva extraordinaria,
-            ya que las hembras pueden dar a luz crías vivas varias veces al año. Su
-            alimentación es omnívora, consumiendo algas, pequeños invertebrados y
-            alimento comercial. Tiene una esperanza de vida de 1 a 3 años y se adapta
-            bien a acuarios comunitarios, siendo ideal para principiantes. Además, su
-            diversidad genética ha permitido la creación de numerosas variedades con
-            patrones y colores únicos.</item>
-        <item>
-            Descripción:\nEl pez Molly (Poecilia sphenops) es una de las especies más populares
-            en la acuariofilia por su resistencia y facilidad de cuidado. Originario de América
-            Central y del Sur, pertenece a la familia Poeciliidae y se caracteriza por ser
-            ovovivíparo, es decir, las crías nacen vivas tras desarrollarse en el interior de
-            la madre. Su tamaño promedio oscila entre 6 y 10 cm, con variedades de colores como
-            negro, blanco, naranja y dálmata. Son peces pacíficos y sociales, ideales para
-            acuarios comunitarios, aunque requieren agua bien oxigenada y con parámetros
-            estables. Su dieta es omnívora, basada en algas, pequeños invertebrados y alimento
-            comercial. Con una esperanza de vida de 3 a 5 años, los mollys destacan por su
-            adaptabilidad, incluso en aguas ligeramente salobres, lo que los convierte en una
-            opción versátil para aficionados y principiantes.</item>
-    </string-array>
-    <string name="toast_classifier_error">Error al clasificar pez</string>
+    <string name="startview_subtitle">Especies marinas para acuarios domesticos</string>
+    <string name="startview_next_button">Continuar</string>
+    <string name="speciesview_title">LISTA DE PECES</string>
+    <string name="speciesview_edittext">Buscar…</string>
+    <string name="speciesview_search_button">Buscar</string>
+    <string name="speciesview_toast_error">No se encontraron peces</string>
+    <string name="infoview_title">INFORMACIÓN</string>
+    <string name="infoview_textview1">Nombre común:</string>
+    <string name="infoview_textview2">Nombre científico:</string>
+    <string name="infoview_textview3">Tipo:</string>
+    <string name="infoview_textview4">Hábitat:</string>
+    <string name="infoview_textview5">Dieta:</string>
+    <string name="infoview_textview6">PH:</string>
+    <string name="infoview_textview7">Temperatura:</string>
+    <string name="infoview_textview8">Espacio:</string>
 </resources>

@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Fondo del icono de la app -->
-    <color name="ic_launcher_background">#FFFFFF</color>
-    <!-- Tema claro -->
-    <color name="colorPrimaryLight">#FF6200EE</color>
-    <color name="colorPrimaryVariantLight">#FF3700B3</color>
-    <color name="colorSecondaryLight">#B8AB91</color>
-    <color name="colorSecondaryVariantLight">#FFB28F4F</color>
-    <color name="colorOnSecondaryLight">#FF000000</color>
-    <color name="colorOnPrimaryLight">#FFFFFFFF</color>
-    <!-- Tema oscuro -->
-    <color name="colorPrimaryDark">#FF6200EE</color>
-    <color name="colorPrimaryVariantDark">#FF3700B3</color>
-    <color name="colorSecondaryDark">#BC7802</color>
-    <color name="colorSecondaryVariantDark">#976815</color>
-    <color name="colorOnSecondaryDark">#FFFFFFFF</color>
-    <color name="colorOnPrimaryDark">#FF000000</color>
+    <color name="ic_launcher_background">#010101</color>
+
+    <!-- ===================== -->
+    <!-- Paleta Light Theme    -->
+    <!-- ===================== -->
+    <color name="colorPrimaryLight">#0288D1</color>   <!-- Azul océano -->
+    <color name="colorOnPrimaryLight">#FFFFFF</color> <!-- Texto sobre primario -->
+
+    <color name="colorSecondaryLight">#4DD0E1</color> <!-- Turquesa claro -->
+    <color name="colorOnSecondaryLight">#000000</color>
+
+    <color name="colorTertiaryLight">#81D4FA</color>  <!-- Celeste coral -->
+    <color name="colorOnTertiaryLight">#000000</color>
+
+    <color name="colorBackgroundLight">#FFFFFF</color>
+    <color name="colorOnBackgroundLight">#000000</color>
+
+    <color name="colorSurfaceLight">#F5F5F5</color>
+    <color name="colorOnSurfaceLight">#000000</color>
+
+    <!-- ===================== -->
+    <!-- Paleta Dark Theme     -->
+    <!-- ===================== -->
+    <color name="colorPrimaryDark">#01579B</color>    <!-- Azul profundo -->
+    <color name="colorOnPrimaryDark">#FFFFFF</color>
+
+    <color name="colorSecondaryDark">#26C6DA</color> <!-- Turquesa intenso -->
+    <color name="colorOnSecondaryDark">#000000</color>
+
+    <color name="colorTertiaryDark">#4FC3F7</color>  <!-- Celeste brillante -->
+    <color name="colorOnTertiaryDark">#000000</color>
+
+    <color name="colorBackgroundDark">#121212</color>
+    <color name="colorOnBackgroundDark">#FFFFFF</color>
+
+    <color name="colorSurfaceDark">#1E1E1E</color>
+    <color name="colorOnSurfaceDark">#FFFFFF</color>
 </resources>

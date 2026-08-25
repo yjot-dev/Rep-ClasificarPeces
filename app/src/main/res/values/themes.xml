@@ -1,17 +1,25 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.ClasificarPeces" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+        <!-- Colores principales -->
         <item name="colorPrimary">@color/colorPrimaryLight</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariantLight</item>
         <item name="colorOnPrimary">@color/colorOnPrimaryLight</item>
-        <!-- Secondary brand color. -->
+
         <item name="colorSecondary">@color/colorSecondaryLight</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariantLight</item>
         <item name="colorOnSecondary">@color/colorOnSecondaryLight</item>
-        <!-- Status bar color. -->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="colorTertiary">@color/colorTertiaryLight</item>
+        <item name="colorOnTertiary">@color/colorOnTertiaryLight</item>
+
+        <!-- Fondo y superficie -->
+        <item name="android:colorBackground">@color/colorBackgroundLight</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundLight</item>
+
+        <item name="colorSurface">@color/colorSurfaceLight</item>
+        <item name="colorOnSurface">@color/colorOnSurfaceLight</item>
+
+        <!-- Configuración adicional -->
+        <item name="android:statusBarColor">@color/colorPrimaryLight</item>
+        <item name="android:navigationBarColor">@color/colorSurfaceLight</item>
     </style>
 </resources>

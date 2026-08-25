@@ -1,40 +1,26 @@
 package com.yjotdev.clasificarpeces
 
-import android.graphics.Bitmap
 import app.cash.turbine.test
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import io.mockk.impl.annotations.RelaxedMockK
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
-import com.yjotdev.clasificarpeces.domain.core.Result
-import com.yjotdev.clasificarpeces.domain.model.ClassifierModel
-import com.yjotdev.clasificarpeces.domain.model.ImageModel
-import com.yjotdev.clasificarpeces.domain.usecase.ClassifierUseCase
+import org.junit.*
+import org.junit.Assert.*
 import com.yjotdev.clasificarpeces.domain.usecase.GetStringUseCase
+import com.yjotdev.clasificarpeces.domain.usecase.SpeciesUseCase
+import com.yjotdev.clasificarpeces.domain.core.Result
+import com.yjotdev.clasificarpeces.domain.model.SpeciesModel
 import com.yjotdev.clasificarpeces.presentation.mvvm.viewmodel.UiViewModel
 import com.yjotdev.clasificarpeces.presentation.navigation.UiEvent
-import com.yjotdev.clasificarpeces.presentation.utils.ImageProvider
-import com.yjotdev.clasificarpeces.presentation.utils.toBase64
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UiViewModelTest {
+    @RelaxedMockK
+    private lateinit var getStringUseCase: GetStringUseCase
 
-    @MockK
-    lateinit var getStringUseCase: GetStringUseCase
-
-    @MockK
-    lateinit var classifierUseCase: ClassifierUseCase
-
-    @MockK
-    lateinit var imageProvider: ImageProvider
-
-    @MockK
-    lateinit var bitmapMock: Bitmap
+    @RelaxedMockK
+    private lateinit var speciesUseCase: SpeciesUseCase
 
     private lateinit var viewModel: UiViewModel
     private val testDispatcher = StandardTestDispatcher()
@@ -43,81 +29,108 @@ class UiViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-
-        // Inicializamos el ViewModel con sus dependencias mockeadas
-        viewModel = UiViewModel(getStringUseCase, classifierUseCase, imageProvider)
-
-        // Mockeamos la clase que contiene la función de extensión toBase64
-        mockkStatic("com.yjotdev.clasificarpeces.presentation.utils.HelperKt")
+        viewModel = UiViewModel(getStringUseCase, speciesUseCase)
     }
 
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        unmockkStatic("com.yjotdev.clasificarpeces.presentation.utils.HelperKt")
-        clearAllMocks()
+        unmockkAll()
     }
 
     @Test
-    fun whenClassifierResultIsCalledAndReturnsSuccessThenUpdateFishResultState() = runTest {
-        // GIVEN
-        val fakeBase64 = "base64EncodedString"
-        val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
-        val expectedResults = listOf(
-            ClassifierModel(label = "Trucha", score = 0.95f),
-            ClassifierModel(label = "Salmon", score = 0.05f)
+    fun whenFishSearchIsSuccessfulThenUiStateIsUpdated() = runTest {
+        // Given
+        val fakeSpeciesList = listOf(
+            SpeciesModel(commonName = "Pez Dorado", scientificName = "Carassius auratus"),
+            SpeciesModel(commonName = "Tiburón", scientificName = "Carcharodon carcharias")
         )
+        coEvery { speciesUseCase(any(), any()) } returns Result.Success(fakeSpeciesList)
 
-        every { bitmapMock.toBase64() } returns fakeBase64
-        coEvery { classifierUseCase(expectedApiString) } returns Result.Success(expectedResults)
+        // Then
+        val job1 = launch {
+            viewModel.uiState.test {
+                // Estado inicial
+                assertEquals(null, awaitItem().fishResult)
 
-        // WHEN & THEN
-        viewModel.uiState.test {
-            // Estado inicial
-            assertEquals(null, awaitItem().fishResult)
-
-            viewModel.classifierResult(bitmapMock)
-            advanceUntilIdle()
-
-            // Verificamos que el estado se actualizó con los resultados
-            val updatedState = awaitItem()
-            assertEquals(expectedResults, updatedState.fishResult)
-
-            cancelAndIgnoreRemainingEvents()
+                // Estado actualizado
+                val updatedState = awaitItem()
+                assertEquals(fakeSpeciesList, updatedState.fishResult)
+            }
         }
 
-        coVerify(exactly = 1) { classifierUseCase(expectedApiString) }
+        // When
+        viewModel.fishSearch("pez")
+        advanceUntilIdle()
+
+        job1.cancel()
+        coVerify(exactly = 1) { speciesUseCase(any(), any()) }
     }
 
     @Test
-    fun whenClassifierResultIsCalledAndReturnsErrorThenSetFishResultNullAndSendEvents() = runTest {
-        // GIVEN
-        val fakeBase64 = "base64ErrorString"
-        val expectedApiString = ImageModel("data:image/png;base64,$fakeBase64")
-        val exceptionMessage = "Network Timeout"
-        val exception = Exception(exceptionMessage)
-        val toastErrorMessage = "Error al clasificar"
+    fun whenFishSearchFailsThenUiStateIsResetAndEventsAreSent() = runTest {
+        // Given
+        val exception = Exception("Error al consultar especies")
+        coEvery { speciesUseCase(any(), any()) } returns Result.Error(exception)
+        coEvery { getStringUseCase(R.string.speciesview_toast_error) } returns "Error al cargar especies"
 
-        every { bitmapMock.toBase64() } returns fakeBase64
-        coEvery { classifierUseCase(expectedApiString) } returns Result.Error(exception)
-        every { getStringUseCase(R.string.toast_classifier_error) } returns toastErrorMessage
+        // Then
+        val job1 = launch {
+            viewModel.uiState.test {
+                // Estado inicial
+                assertEquals(null, awaitItem().fishResult)
 
-        // WHEN & THEN (Probamos el Channel de eventos)
-        viewModel.eventChannel.test {
-            viewModel.classifierResult(bitmapMock)
-            advanceUntilIdle()
-
-            // Verificamos que se emitieron los eventos en el orden correcto
-            assert(UiEvent.ShowToast(toastErrorMessage).message.isNotEmpty())
-            assert(UiEvent.ShowLog(exceptionMessage).message.isNotEmpty())
-
-            // Verificamos que el resultado en el estado sea null (limpieza)
-            assertEquals(null, viewModel.uiState.value.fishResult)
-
-            cancelAndIgnoreRemainingEvents()
+                // Estado actualizado tras error
+                val updatedState = awaitItem()
+                assertEquals(null, updatedState.fishResult)
+            }
         }
 
-        coVerify(exactly = 1) { classifierUseCase(expectedApiString) }
-        verify(exactly = 1) { getStringUseCase(R.string.toast_classifier_error) }
+        val job2 = launch {
+            viewModel.eventChannel.test {
+                // Verifica que se envía el Toast
+                val toastEvent = awaitItem()
+                assertTrue(toastEvent is UiEvent.ShowToast)
+                assertEquals("Error al cargar especies", (toastEvent as UiEvent.ShowToast).message)
+
+                // Verifica que se envía el Log
+                val logEvent = awaitItem()
+                assertTrue(logEvent is UiEvent.ShowLog)
+                assertEquals("Error al consultar especies", (logEvent as UiEvent.ShowLog).message)
+            }
+        }
+
+        // When
+        viewModel.fishSearch("pez")
+        advanceUntilIdle()
+
+        job1.cancel()
+        job2.cancel()
+        coVerify(exactly = 1) { speciesUseCase(any(), any()) }
+        coVerify(exactly = 1) { getStringUseCase(R.string.speciesview_toast_error) }
+    }
+
+    @Test
+    fun whenSetInfoIsInvokedThenUiStateIsUpdatedWithFishInfo() = runTest {
+        // Given
+        val fakeSpecies = SpeciesModel(commonName = "Pez Dorado", scientificName = "Carassius auratus")
+
+        // Then
+        val job1 = launch {
+            viewModel.uiState.test {
+                // Estado inicial
+                assertEquals(SpeciesModel(), awaitItem().fishInfo)
+
+                // When
+                viewModel.setInfo(fakeSpecies)
+                advanceUntilIdle()
+
+                // Estado actualizado
+                val updatedState = awaitItem()
+                assertEquals(fakeSpecies, updatedState.fishInfo)
+            }
+        }
+
+        job1.cancel()
     }
 }

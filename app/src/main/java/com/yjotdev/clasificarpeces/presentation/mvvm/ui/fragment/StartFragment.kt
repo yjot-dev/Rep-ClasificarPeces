@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
-import com.yjotdev.clasificarpeces.R
 import com.yjotdev.clasificarpeces.databinding.FragmentStartBinding
+import com.yjotdev.clasificarpeces.R
 
 @AndroidEntryPoint
 class StartFragment : Fragment() {
@@ -30,7 +30,7 @@ class StartFragment : Fragment() {
 
     private fun setupClickListeners(){
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_start_to_detector)
+            findNavController().navigate(R.id.action_start_to_species)
         }
     }
 }

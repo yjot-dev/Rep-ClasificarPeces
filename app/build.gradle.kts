@@ -13,8 +13,8 @@ android {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.6"
+        versionCode = 7
+        versionName = "1.7"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
     }
     signingConfigs {
@@ -83,6 +83,8 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.androidx.activity)
     ksp(libs.dagger.hilt.android.compiler)
+    //Coil
+    implementation(libs.coil)
     //Retrofit
     implementation(libs.squareup.retrofit2)
     implementation(libs.squareup.retrofit2.gson)
@@ -93,11 +95,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.core.testing)
     testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.espresso.intents)
     androidTestImplementation(libs.androidx.espresso.contrib)
     androidTestImplementation(libs.dagger.hilt.android.testing)
     kspAndroidTest(libs.dagger.hilt.android.compiler)

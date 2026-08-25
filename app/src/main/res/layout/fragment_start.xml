@@ -13,8 +13,10 @@
         android:layout_weight="0.25" />
 
     <ImageView
+        android:id="@+id/ivCover"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/long2_dp"
+        android:layout_height="@dimen/long3_dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/startview_title"
         android:src="@drawable/portada" />
 
@@ -24,10 +26,18 @@
         android:layout_weight="1" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/long3_dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/startview_title"
-        style="@style/MiTituloStyle"/>
+        style="@style/TextViewTitle"/>
+
+    <TextView
+        android:layout_width="@dimen/long3_dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/startview_subtitle"
+        style="@style/TextViewSubtitle"/>
 
     <Space
         android:layout_width="match_parent"
@@ -36,10 +46,10 @@
 
     <Button
         android:id="@+id/btnNext"
-        android:layout_width="@dimen/long2_dp"
-        android:layout_height="@dimen/medium1_dp"
+        android:layout_width="@dimen/long3_dp"
+        android:layout_height="@dimen/medium2_dp"
         android:text="@string/startview_next_button"
-        style="@style/MiBotonStyle" />
+        style="@style/Button" />
 
     <Space
         android:layout_width="match_parent"

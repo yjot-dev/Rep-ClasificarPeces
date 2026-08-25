@@ -5,10 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSecondaryVariant"
-    android:elevation="@dimen/short2_dp"
-    app:titleTextColor="?attr/colorOnPrimary"
-    app:navigationIcon="@drawable/arrow_back_70"
-    app:navigationIconTint="?attr/colorOnPrimary"
+    app:navigationIcon="@drawable/arrow_back"
+    app:navigationIconTint="?attr/colorOnBackground"
     app:titleCentered="true"
     tools:title="Mi titulo" />

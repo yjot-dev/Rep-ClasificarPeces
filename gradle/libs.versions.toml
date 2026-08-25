@@ -4,60 +4,60 @@ agp = "8.13.2"
 kotlin = "2.1.0"
 # Ksp
 ksp = "2.1.0-1.0.29"
-coreKtx = "1.15.0"
+coreKtx = "1.18.0"
 # Testing
 junit = "4.13.2"
-junitTest = "1.2.1"
-espresso = "3.6.1"
-mockk = "1.13.13"
-coroutines-test = "1.9.0"
-turbine = "1.1.0"
+junitTest = "1.3.0"
+espresso = "3.7.0"
+mockk = "1.14.11"
+coroutines-test = "1.11.0"
+turbine = "1.2.1"
 # Lifecycle & XML
 appcompat = "1.7.1"
-material = "1.13.0"
-activity = "1.10.0"
+material = "1.14.0"
+activity = "1.13.0"
 fragmentKtx = "1.8.9"
 recyclerview = "1.3.2"
 # Navigation
-navVersion = "2.8.5"
+navVersion = "2.9.8"
 # Network
-retrofit = "2.11.0"
-gson = "2.11.0"
-loggingInterceptor = "4.12.0"
+retrofit = "3.0.0"
+gson = "2.14.0"
+loggingInterceptor = "5.4.0"
 # Dependency Injection (Hilt)
 hilt = "2.54"
-# ArchCore
-archCore = "2.2.0"
+# Coil
+coil = "2.7.0"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
-androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navVersion" }
-androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navVersion" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
 
-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-squareup-retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 
-squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+squareup-retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+squareup-retrofit2-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+google-code-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitTest" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
-androidx-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "espresso" }
-androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso" }
-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
-androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCore" }
+squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitTest" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
+dagger-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
