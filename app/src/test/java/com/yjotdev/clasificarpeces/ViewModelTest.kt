@@ -5,10 +5,12 @@ import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import kotlinx.coroutines.flow.flowOf
 import org.junit.*
 import org.junit.Assert.*
 import com.yjotdev.clasificarpeces.domain.usecase.GetStringUseCase
-import com.yjotdev.clasificarpeces.domain.usecase.SpeciesUseCase
+import com.yjotdev.clasificarpeces.domain.usecase.SpeciesApiUseCase
+import com.yjotdev.clasificarpeces.domain.usecase.SpeciesDaoUseCase
 import com.yjotdev.clasificarpeces.domain.core.Result
 import com.yjotdev.clasificarpeces.domain.model.SpeciesModel
 import com.yjotdev.clasificarpeces.presentation.mvvm.viewmodel.UiViewModel
@@ -20,7 +22,10 @@ class UiViewModelTest {
     private lateinit var getStringUseCase: GetStringUseCase
 
     @RelaxedMockK
-    private lateinit var speciesUseCase: SpeciesUseCase
+    private lateinit var speciesApiUseCase: SpeciesApiUseCase
+
+    @RelaxedMockK
+    private lateinit var speciesDaoUseCase: SpeciesDaoUseCase
 
     private lateinit var viewModel: UiViewModel
     private val testDispatcher = StandardTestDispatcher()
@@ -29,7 +34,8 @@ class UiViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = UiViewModel(getStringUseCase, speciesUseCase)
+        every { speciesDaoUseCase() } returns flowOf(listOf(SpeciesModel(id = 1)))
+        viewModel = UiViewModel(getStringUseCase, speciesApiUseCase, speciesDaoUseCase)
     }
 
     @After
@@ -39,81 +45,9 @@ class UiViewModelTest {
     }
 
     @Test
-    fun whenFishSearchIsSuccessfulThenUiStateIsUpdated() = runTest {
+    fun whenSetInfoIsInvokedThenUiStateIsUpdatedWithSpeciesInfo() = runTest {
         // Given
-        val fakeSpeciesList = listOf(
-            SpeciesModel(commonName = "Pez Dorado", scientificName = "Carassius auratus"),
-            SpeciesModel(commonName = "Tiburón", scientificName = "Carcharodon carcharias")
-        )
-        coEvery { speciesUseCase(any(), any()) } returns Result.Success(fakeSpeciesList)
-
-        // Then
-        val job1 = launch {
-            viewModel.uiState.test {
-                // Estado inicial
-                assertEquals(null, awaitItem().fishResult)
-
-                // Estado actualizado
-                val updatedState = awaitItem()
-                assertEquals(fakeSpeciesList, updatedState.fishResult)
-            }
-        }
-
-        // When
-        viewModel.fishSearch("pez")
-        advanceUntilIdle()
-
-        job1.cancel()
-        coVerify(exactly = 1) { speciesUseCase(any(), any()) }
-    }
-
-    @Test
-    fun whenFishSearchFailsThenUiStateIsResetAndEventsAreSent() = runTest {
-        // Given
-        val exception = Exception("Error al consultar especies")
-        coEvery { speciesUseCase(any(), any()) } returns Result.Error(exception)
-        coEvery { getStringUseCase(R.string.speciesview_toast_error) } returns "Error al cargar especies"
-
-        // Then
-        val job1 = launch {
-            viewModel.uiState.test {
-                // Estado inicial
-                assertEquals(null, awaitItem().fishResult)
-
-                // Estado actualizado tras error
-                val updatedState = awaitItem()
-                assertEquals(null, updatedState.fishResult)
-            }
-        }
-
-        val job2 = launch {
-            viewModel.eventChannel.test {
-                // Verifica que se envía el Toast
-                val toastEvent = awaitItem()
-                assertTrue(toastEvent is UiEvent.ShowToast)
-                assertEquals("Error al cargar especies", (toastEvent as UiEvent.ShowToast).message)
-
-                // Verifica que se envía el Log
-                val logEvent = awaitItem()
-                assertTrue(logEvent is UiEvent.ShowLog)
-                assertEquals("Error al consultar especies", (logEvent as UiEvent.ShowLog).message)
-            }
-        }
-
-        // When
-        viewModel.fishSearch("pez")
-        advanceUntilIdle()
-
-        job1.cancel()
-        job2.cancel()
-        coVerify(exactly = 1) { speciesUseCase(any(), any()) }
-        coVerify(exactly = 1) { getStringUseCase(R.string.speciesview_toast_error) }
-    }
-
-    @Test
-    fun whenSetInfoIsInvokedThenUiStateIsUpdatedWithFishInfo() = runTest {
-        // Given
-        val fakeSpecies = SpeciesModel(commonName = "Pez Dorado", scientificName = "Carassius auratus")
+        val fakeSpecies = SpeciesModel(commonName = "Pez Payaso", scientificName = "Amphiprioninae")
 
         // Then
         val job1 = launch {
@@ -123,14 +57,92 @@ class UiViewModelTest {
 
                 // When
                 viewModel.setInfo(fakeSpecies)
-                advanceUntilIdle()
 
                 // Estado actualizado
-                val updatedState = awaitItem()
-                assertEquals(fakeSpecies, updatedState.fishInfo)
+                assertEquals(fakeSpecies, awaitItem().fishInfo)
             }
         }
 
+        advanceUntilIdle()
         job1.cancel()
+    }
+
+    @Test
+    fun whenGetRemoteDataIsSuccessfulThenDaoUseCaseIsInvokedToInsertData() = runTest {
+        // Given
+        val fakeSpeciesList = listOf(
+            SpeciesModel(id = 10, commonName = "Betta", scientificName = "Betta splendens")
+        )
+        coEvery { speciesApiUseCase(any()) } returns Result.Success(fakeSpeciesList)
+
+        // When
+        viewModel.getRemoteData()
+        advanceUntilIdle()
+
+        // Then
+        coVerify(exactly = 1) { speciesDaoUseCase(fakeSpeciesList) }
+    }
+
+    @Test
+    fun whenGetRemoteDataFailsThenUiStateIsUpdatedAndEventsAreSent() = runTest {
+        // Given
+        val errorMessage = "Error al obtener datos"
+        val exception = Exception(errorMessage)
+        val toastText = "Error de conexión"
+        coEvery { speciesApiUseCase(any()) } returns Result.Error(exception)
+        coEvery { getStringUseCase(R.string.speciesview_toast_error) } returns toastText
+
+        // Then
+        val job1 = launch {
+            viewModel.uiState.test {
+                skipItems(1)
+                val state = awaitItem()
+                assertEquals(emptyList<SpeciesModel>(), state.fishResult)
+            }
+        }
+
+        val job2 = launch {
+            viewModel.eventChannel.test {
+                assertEquals(UiEvent.ShowToast(toastText), awaitItem())
+                val logEvent = awaitItem() as UiEvent.ShowLog
+                assertEquals(errorMessage, logEvent.message)
+            }
+        }
+
+        // When
+        viewModel.getRemoteData()
+        advanceUntilIdle()
+
+        // Final verification
+        job1.cancel()
+        job2.cancel()
+        coVerify(exactly = 1) { speciesApiUseCase(any()) }
+    }
+
+    @Test
+    fun whenSearchLocalDataIsInvokedThenUiStateIsUpdatedWithFilteredList() = runTest {
+        // Given
+        val query = "Goldfish"
+        val filteredList = listOf(
+            SpeciesModel(commonName = "Goldfish", scientificName = "Carassius auratus")
+        )
+        every { speciesDaoUseCase(query) } returns flowOf(filteredList)
+
+        // Then
+        val job1 = launch {
+            viewModel.uiState.test {
+                skipItems(1) // Salta el estado inicial del init
+
+                // When
+                viewModel.searchLocalData(query)
+
+                // Estado con los resultados de búsqueda
+                assertEquals(filteredList, awaitItem().fishResult)
+            }
+        }
+
+        advanceUntilIdle()
+        job1.cancel()
+        coVerify(exactly = 1) { speciesDaoUseCase(query) }
     }
 }

@@ -6,6 +6,7 @@ CLASIFICADOR DE PECES (CP) es una aplicación diseñada para los amantes de los 
 - 📊 Integración con ViewModel + StateFlow
 - 🎨 Patrón de diseño arquitectónico con MVVM + Clean Architecture
 - 💉 Inyección de dependencias con Hilt
+- 🧩 API RESTful con Node.JS y persistencia local con Room
 - 📱 Compatible con Android 7.0 (API 24) en adelante
 
 # Instalación

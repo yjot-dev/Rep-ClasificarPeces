@@ -12,7 +12,6 @@ import com.yjotdev.clasificarpeces.data.remote.dto.SpeciesDto
 interface SpeciesApi {
     @GET("species")
     suspend fun seleccionarEspecies(
-        @Query("searchedText") searchedText: String? = null,
         @Query("language") language: String
     ): Response<List<SpeciesDto>>
 }

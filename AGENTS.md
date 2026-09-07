@@ -14,7 +14,7 @@ El proyecto utiliza las siguientes tecnologías y patrones:
 - **Navegación:** Navigation Component (gestionado en el directorio navigation)
 - **Gestión de Estado:** ViewModel + StateFlow
 - **Inyección de Dependencias:** Hilt
-- **Persistencia/Red:** API remota con Retrofit
+- **Persistencia/Red:** API remota con Retrofit y local con Room
 - **Compatibilidad:** Android 7.0 (API 24) en adelante
 
 ## 3. ESTRUCTURA DEL PROYECTO (Clean Architecture)
@@ -39,6 +39,7 @@ Se debe seguir estrictamente la siguiente organización de directorios:
 - **`data`** (Implementación de Datos)
     - `di`: Módulos de Hilt (`DiModules.kt`).
     - `repository`: Implementaciones concretas de los repositorios.
+    - `local`: Persistencia local (Room DAO, entidades, bases de datos y mappers).
     - `remote`: Comunicación de red (API, DTOs, Mappers, NetworkUtils).
 
 ## 4. CONVENCIONES Y ESTILO

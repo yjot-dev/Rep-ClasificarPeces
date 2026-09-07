@@ -14,7 +14,8 @@ import javax.inject.Inject
 import com.yjotdev.clasificarpeces.presentation.mvvm.state.UiState
 import com.yjotdev.clasificarpeces.presentation.navigation.UiEvent
 import com.yjotdev.clasificarpeces.presentation.utils.Helper
-import com.yjotdev.clasificarpeces.domain.usecase.SpeciesUseCase
+import com.yjotdev.clasificarpeces.domain.usecase.SpeciesApiUseCase
+import com.yjotdev.clasificarpeces.domain.usecase.SpeciesDaoUseCase
 import com.yjotdev.clasificarpeces.domain.usecase.GetStringUseCase
 import com.yjotdev.clasificarpeces.domain.model.SpeciesModel
 import com.yjotdev.clasificarpeces.domain.core.Result
@@ -23,41 +24,63 @@ import com.yjotdev.clasificarpeces.R
 @HiltViewModel
 class UiViewModel @Inject constructor(
     private val getStringUseCase: GetStringUseCase,
-    private val speciesUseCase: SpeciesUseCase
+    private val speciesApiUseCase: SpeciesApiUseCase,
+    private val speciesDaoUseCase: SpeciesDaoUseCase
 ): ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     private val _eventChannel = Channel<UiEvent>()
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
     val eventChannel = _eventChannel.receiveAsFlow()
 
+    init {
+        observeSpecies()
+    }
+
     override fun onCleared() {
         _uiState.value = UiState()
     }
 
-    /** Estado que muestra la información de un pez seleccionado **/
+    /** Estado que muestra la información de una especie marina seleccionada **/
     fun setInfo(value: SpeciesModel){
         _uiState.update { it.copy(fishInfo = value)}
     }
 
-    /**
-     * Busca una lista de peces según el texto ingresado
-     * caso contrario devuelve la lista completa.
-     **/
-    fun fishSearch(searchedText: String? = null) {
+    /** Obtiene la lista completa de especies marinas desde la base de datos remota **/
+    fun getRemoteData() {
         viewModelScope.launch {
             val language = Helper.getDeviceLanguage()
-            when(val result = speciesUseCase(searchedText, language)) {
+            when(val result = speciesApiUseCase(language)) {
                 is Result.Success -> {
-                    _uiState.update { it.copy(fishResult = result.data) }
+                    speciesDaoUseCase(result.data)
                 }
                 is Result.Error -> {
-                    _uiState.update { it.copy(fishResult = null) }
+                    _uiState.update { it.copy(fishResult = emptyList()) }
                     _eventChannel.send(UiEvent.ShowToast(
                         getStringUseCase(R.string.speciesview_toast_error)
                     ))
                     _eventChannel.send(UiEvent.ShowLog(
                         result.exception.message!!
                     ))
+                }
+            }
+        }
+    }
+
+    /** Busca especies marinas desde la base de datos local **/
+    fun searchLocalData(query: String) {
+        viewModelScope.launch {
+            speciesDaoUseCase(query).collect { list ->
+                _uiState.update { it.copy(fishResult = list) }
+            }
+        }
+    }
+
+    private fun observeSpecies() {
+        viewModelScope.launch {
+            speciesDaoUseCase().collect { list ->
+                _uiState.update { it.copy(fishResult = list) }
+                if(list.isEmpty()){
+                    getRemoteData()
                 }
             }
         }

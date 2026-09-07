@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import android.os.Bundle
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -53,24 +54,33 @@ class SpeciesFragment : Fragment() {
         binding.rvFishList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFishList.adapter = adapter
         // Obtiene la lista de peces completa
-        viewModel.fishSearch()
+        viewModel.getRemoteData()
     }
 
     private fun setupClickListeners(){
         binding.ibSearch.setOnClickListener {
             val searchedText = binding.etSearch.text.toString()
-            viewModel.fishSearch(searchedText)
+            viewModel.searchLocalData(searchedText)
         }
+        binding.etSearch.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: android.text.Editable?) {
+                // Si el texto es vacío entonces muestra toda la lista gracias al patron %% en Room
+                val searchedText = p0.toString()
+                if(searchedText.isEmpty()){
+                    viewModel.searchLocalData(searchedText)
+                }
+            }
+        })
     }
 
     private fun observeViewModelState(){
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    uiState.fishResult?.let { list ->
-                        //Guarda resultados en el adapter
-                        adapter.submitList(list)
-                    }
+                    //Guarda resultados en el adapter
+                    adapter.submitList(uiState.fishResult)
                 }
             }
         }
