@@ -8,7 +8,7 @@ import com.yjotdev.clasificarpeces.domain.model.SpeciesModel
 class SpeciesApiUseCase @Inject constructor(
     private val speciesApiRepository: SpeciesApiRepository
 ) {
-    suspend operator fun invoke(language: String): Result<List<SpeciesModel>> {
-        return speciesApiRepository.seleccionarEspecies(language)
+    suspend operator fun invoke(): Result<List<SpeciesModel>> {
+        return speciesApiRepository.seleccionarEspecies()
     }
 }

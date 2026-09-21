@@ -73,7 +73,7 @@ class UiViewModelTest {
         val fakeSpeciesList = listOf(
             SpeciesModel(id = 10, commonName = "Betta", scientificName = "Betta splendens")
         )
-        coEvery { speciesApiUseCase(any()) } returns Result.Success(fakeSpeciesList)
+        coEvery { speciesApiUseCase() } returns Result.Success(fakeSpeciesList)
 
         // When
         viewModel.getRemoteData()
@@ -89,7 +89,7 @@ class UiViewModelTest {
         val errorMessage = "Error al obtener datos"
         val exception = Exception(errorMessage)
         val toastText = "Error de conexión"
-        coEvery { speciesApiUseCase(any()) } returns Result.Error(exception)
+        coEvery { speciesApiUseCase() } returns Result.Error(exception)
         coEvery { getStringUseCase(R.string.speciesview_toast_error) } returns toastText
 
         // Then
@@ -116,7 +116,7 @@ class UiViewModelTest {
         // Final verification
         job1.cancel()
         job2.cancel()
-        coVerify(exactly = 1) { speciesApiUseCase(any()) }
+        coVerify(exactly = 1) { speciesApiUseCase() }
     }
 
     @Test

@@ -13,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.yjotdev.clasificarpeces.presentation.mvvm.state.UiState
 import com.yjotdev.clasificarpeces.presentation.navigation.UiEvent
-import com.yjotdev.clasificarpeces.presentation.utils.Helper
 import com.yjotdev.clasificarpeces.domain.usecase.SpeciesApiUseCase
 import com.yjotdev.clasificarpeces.domain.usecase.SpeciesDaoUseCase
 import com.yjotdev.clasificarpeces.domain.usecase.GetStringUseCase
@@ -48,8 +47,7 @@ class UiViewModel @Inject constructor(
     /** Obtiene la lista completa de especies marinas desde la base de datos remota **/
     fun getRemoteData() {
         viewModelScope.launch {
-            val language = Helper.getDeviceLanguage()
-            when(val result = speciesApiUseCase(language)) {
+            when(val result = speciesApiUseCase()) {
                 is Result.Success -> {
                     speciesDaoUseCase(result.data)
                 }

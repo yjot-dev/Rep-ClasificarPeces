@@ -16,4 +16,5 @@
     <string name="infoview_textview6">PH:</string>
     <string name="infoview_textview7">Temperatura:</string>
     <string name="infoview_textview8">Espacio:</string>
+    <string name="overlay_text">Cargando</string>
 </resources>

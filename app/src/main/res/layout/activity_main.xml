@@ -8,16 +8,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Barra superior de las vistas -->
     <include
         android:id="@+id/includeToolbar"
         layout="@layout/toolbar" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentNav"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        android:gravity="center">
+        <!-- Contenedor de navegación -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentNav"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
+
+        <!-- Overlay de carga -->
+        <include
+            android:id="@+id/loadingOverlay"
+            android:visibility="gone"
+            layout="@layout/circle_progress_bar" />
+    </FrameLayout>
 
 </LinearLayout>

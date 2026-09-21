@@ -38,17 +38,17 @@ class SpeciesApiUseCaseTest {
             SpeciesModel(commonName = "Tiburón", scientificName = "Carcharodon carcharias")
         )
         // Entrenamos al puerto para devolver un Result.Success
-        coEvery { speciesApiRepository.seleccionarEspecies(any()) } returns Result.Success(fakeSpeciesList)
+        coEvery { speciesApiRepository.seleccionarEspecies() } returns Result.Success(fakeSpeciesList)
 
         // WHEN
-        val result = speciesApiUseCase("es")
+        val result = speciesApiUseCase()
 
         // THEN
         assertTrue(result is Result.Success)
         assertEquals(fakeSpeciesList, (result as Result.Success).data)
 
         // Verificación de interacción con la capa de infraestructura/puerto
-        coVerify(exactly = 1) { speciesApiRepository.seleccionarEspecies(any()) }
+        coVerify(exactly = 1) { speciesApiRepository.seleccionarEspecies() }
     }
 
     /**
@@ -59,16 +59,16 @@ class SpeciesApiUseCaseTest {
         // GIVEN
         val exception = Exception("Error al procesar el modelo TFLite")
         // Entrenamos al puerto para devolver un Result.Error
-        coEvery { speciesApiRepository.seleccionarEspecies(any()) } returns Result.Error(exception)
+        coEvery { speciesApiRepository.seleccionarEspecies() } returns Result.Error(exception)
 
         // WHEN
-        val result = speciesApiUseCase("es")
+        val result = speciesApiUseCase()
 
         // THEN
         assertTrue(result is Result.Error)
         assertEquals(exception, (result as Result.Error).exception)
 
         // Verificación de interacción
-        coVerify(exactly = 1) { speciesApiRepository.seleccionarEspecies(any()) }
+        coVerify(exactly = 1) { speciesApiRepository.seleccionarEspecies() }
     }
 }

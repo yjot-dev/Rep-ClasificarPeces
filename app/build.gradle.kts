@@ -13,8 +13,8 @@ android {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.8"
+        versionCode = 9
+        versionName = "1.9"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
     }
     signingConfigs {
@@ -64,6 +64,7 @@ android {
             useLegacyPackaging = false
         }
     }
+    testOptions { animationsDisabled = true }
 }
 
 tasks.withType<JavaCompile> {

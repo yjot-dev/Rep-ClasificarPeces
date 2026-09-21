@@ -29,7 +29,7 @@ class FakeSpeciesApiRepositoryImpl @Inject constructor() : SpeciesApiRepository{
         )
     )
 
-    override suspend fun seleccionarEspecies(language: String): Result<List<SpeciesModel>> {
+    override suspend fun seleccionarEspecies(): Result<List<SpeciesModel>> {
         // Simulamos una respuesta exitosa
         return Result.Success(fakeData)
     }

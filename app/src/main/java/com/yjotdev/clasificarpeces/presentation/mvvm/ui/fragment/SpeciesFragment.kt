@@ -76,11 +76,17 @@ class SpeciesFragment : Fragment() {
     }
 
     private fun observeViewModelState(){
+        val overlay = requireActivity().findViewById<View>(R.id.loadingOverlay)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    //Guarda resultados en el adapter
-                    adapter.submitList(uiState.fishResult)
+                    if (uiState.fishResult.isNotEmpty()) {
+                        //Guarda resultados en el adapter
+                        adapter.submitList(uiState.fishResult)
+                        overlay.visibility = View.GONE
+                    }else {
+                        overlay.visibility = View.VISIBLE
+                    }
                 }
             }
         }
