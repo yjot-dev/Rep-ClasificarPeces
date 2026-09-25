@@ -1,21 +1,23 @@
+import com.android.build.api.dsl.ApplicationExtension
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
 }
 
-android {
+configure<ApplicationExtension> {
     namespace = "com.yjotdev.clasificarpeces"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 9
         versionName = "1.9"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
+        androidResources.localeFilters += setOf("en", "es")
     }
     signingConfigs {
         create("release") {
@@ -48,9 +50,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
     buildFeatures {
         viewBinding = true
