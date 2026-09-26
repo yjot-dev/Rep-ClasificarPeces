@@ -14,8 +14,8 @@ configure<ApplicationExtension> {
         applicationId = "com.yjotdev.clasificarpeces"
         minSdk = 24
         targetSdk = 37
-        versionCode = 9
-        versionName = "1.9"
+        versionCode = 10
+        versionName = "2.0"
         testInstrumentationRunner = "com.yjotdev.clasificarpeces.CustomTestRunner"
         androidResources.localeFilters += setOf("en", "es")
     }
