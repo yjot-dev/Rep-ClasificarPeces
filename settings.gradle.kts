@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Clasificar Peces"
+rootProject.name = "CP"
 include(":app")

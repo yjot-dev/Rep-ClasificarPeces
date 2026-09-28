@@ -1,5 +1,5 @@
 # CLASIFICADOR DE PECES (CP)
-CLASIFICADOR DE PECES (CP) es una aplicación diseñada para los amantes de los acuarios domésticos. Su objetivo es ofrecer información confiable y organizada sobre las especies marinas más comunes que se pueden mantener en casa, incluyendo peces, caracoles, tortugas y gambas.
+CP es una aplicación diseñada para los amantes de los acuarios domésticos. Su objetivo es ofrecer información confiable y organizada sobre las especies marinas más comunes que se pueden mantener en casa, incluyendo peces, caracoles, tortugas y gambas.
 
 # Características principales
 - 🪟 Interfaz clásica con XML
