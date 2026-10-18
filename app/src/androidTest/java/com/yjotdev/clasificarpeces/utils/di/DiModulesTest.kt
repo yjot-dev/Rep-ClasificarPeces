@@ -30,19 +30,19 @@ abstract class DiModulesTest {
     // --- BINDINGS (Abstracciones) ---
     @Binds
     @Singleton
-    abstract fun bindSpeciesApiRepository(
+    abstract fun bindFakeSpeciesApiRepository(
         impl: FakeSpeciesApiRepositoryImpl
     ): SpeciesApiRepository
 
     @Binds
     @Singleton
-    abstract fun bindSpeciesDaoRepository(
+    abstract fun bindFakeSpeciesDaoRepository(
         impl: FakeSpeciesDaoRepositoryImpl
     ): SpeciesDaoRepository
 
     @Binds
     @Singleton
-    abstract fun bindStringRepository(
+    abstract fun bindFakeStringRepository(
         impl: FakeStringRepositoryImpl
     ): StringRepository
 
